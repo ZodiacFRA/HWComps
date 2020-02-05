@@ -8,8 +8,8 @@ int App::loadTextureLibrary()
 	_textureLibrary.emplace("Player", tmpTex);
 
 	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/final_floortexture.bmp", false);
-	_textureLibrary.emplace("floortexture", tmpTex);
+	tmpTex->loadTexture("./data/textures/floor.bmp", false);
+	_textureLibrary.emplace("floor", tmpTex);
 
 	tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/cube.bmp", false);
@@ -56,9 +56,9 @@ int App::loadObjsLibrary()
 	tmpObj->loadObj("./data/objs/Player.obj");
 	_objsLibrary.emplace("Player", tmpObj);
 
-	tmpObj = new Obj("obs0L");
-	tmpObj->loadObj("./data/objs/obs0L.obj");
-	_objsLibrary.emplace("obs0L", tmpObj);
+	tmpObj = new Obj("floor");
+	tmpObj->loadObj("./data/objs/floor.obj");
+	_objsLibrary.emplace("floor", tmpObj);
 
 	tmpObj = new Obj("obs1L");
 	tmpObj->loadObj("./data/objs/obs1L.obj");

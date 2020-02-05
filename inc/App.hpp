@@ -35,17 +35,6 @@ private:
 	int handleTime();
 	int handleAspectRatio();
 
-	// Game
-	int moveScenery();
-	int addBorders();
-	int addProps();
-	int moveFloor(glm::vec3 worldM);
-	int moveObjects(glm::vec3 worldM);
-	int handleSingleObjMovement(std::pair<std::string, Node*> it,
-			glm::vec3 worldM, std::vector<std::string> &toDelete);
-	int createRandomProp(std::string name, int x);
-	int handleCollision(Node *Node);
-
 	// Player
 	int handlePlayerMovement();
 	int handleJump();
@@ -91,8 +80,6 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
-	int _lives;
-	int _score;
 
 	// Fonts
 	unsigned int _text2DTextureID;

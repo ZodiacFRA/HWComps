@@ -22,15 +22,6 @@ int App::handleMove()
 	hasReleasedLeft |= glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_RELEASE;
 	hasReleasedRight |= glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_RELEASE;
 
-	// Double move patch
-	// if (hasReleasedLeft)
-	// 	goLeft = false;
-	// if (hasReleasedRight)
-	// 	goRight = false;
-	// std::cout << "-------------" << '\n';
-	// std::cout << goLeft << goRight << '\n';
-	// std::cout << hasReleasedLeft << hasReleasedRight << '\n';
-
 	if (goLeft && hasReleasedLeft && playerPosMatrix[0] != -2.0) {
 		// playSound("move");
 		moveDirection = -1;
@@ -50,8 +41,6 @@ int App::handleMove()
 			_sceneTree.translateNode("PlayerNode",
 					glm::vec3(0.4, 0, 0));
 	}
-	// Change camera pos with player movement
-	_camPos = glm::vec3(-playerPosMatrix[0] / 7, 15 + playerPosMatrix[1], 10);
 	return SUCCESS;
 }
 

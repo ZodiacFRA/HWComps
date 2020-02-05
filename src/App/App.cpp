@@ -8,24 +8,20 @@ App::App()
 	_worldSpeed(0.25), _distMoved(0.0),
 	_camPos(glm::vec3(0, 15, 10)),  // RIGHT / HEIGHT / FRONT
 	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),  // camera lookat
-	_jumpStart(0.0), _lives(5), _score(0), _shake(false)  // Game parameters
+	_jumpStart(0.0), _shake(false)  // Game parameters
 {}
 
 
 int App::setupScene()
 {
-	// Node name, Obj name, Shader name, Texture name, Position
 	// 1 openGL unit = 1m in Blender
 
+	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
 		"Player", glm::vec3(0, 0, 0));
 
-	createNode("", "terrainLeftNode", "rectFloor", "StandardShading",
-		"floortexture", glm::vec3(0, 0, 0));
-	createNode("", "terrainMidNode", "rectFloor", "StandardShading",
-		"floortexture", glm::vec3(0, 0, PROP_SPAWN));
-	createNode("", "terrainRightNode", "rectFloor", "StandardShading",
-		"floortexture", glm::vec3(0, 0, 2 * PROP_SPAWN));
+	createNode("", "terrainMidNode", "floor", "StandardShading",
+		"floor", glm::vec3(0, 0, PROP_SPAWN));
 	return SUCCESS;
 }
 
@@ -36,18 +32,17 @@ int App::run()
 		if (handleTime()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			moveScenery();  // Handle scenery scrolling
 			handlePlayerMovement();
 
-			// if (!this->computeMatricesFromInputs(true, 100.0f, true))
-			if (!this->computeMatricesFromInputs(true, 40.0f, false))
+			if (!this->computeMatricesFromInputs(true, 100.0f, true))
+			// if (!this->computeMatricesFromInputs(true, 40.0f, false))
 				return FAILURE;
 
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
 			// Draw info text
 			char text[256];
-			sprintf(text,"Score:%d Lives:%d", _score, _lives);
+			sprintf(text,"FPS: %f", _fps);
 			printText2D(text, 0, 570, 20);
 
 			// Swap buffers
