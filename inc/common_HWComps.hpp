@@ -36,8 +36,8 @@
 
 #define BG_COLOR 0, 0, 0, 0
 
-#define MOUSE_H_MOV_SPEED 0.001f
-#define MOUSE_V_MOV_SPEED 0.00005f
+#define MOUSE_H_MOV_SPEED 0.0005f
+#define MOUSE_V_MOV_SPEED 0.0001f
 
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"

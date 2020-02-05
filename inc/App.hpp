@@ -28,9 +28,17 @@ private:
 
 
 	int setupScene();
+	int createMap();
+
 	Node *createNode(std::string parentNodeName, std::string nodeName,
 			std::string objName, std::string shaderName,
-			std::string textureName, glm::vec3 position, int randomID=-1);
+			std::string textureName, glm::vec3 position, int checkCollisions=1,
+			int randomID=-1);
+
+	Node *createNode(std::string parentNodeName, std::string nodeName,
+			std::string objName, std::string shaderName,
+			std::string textureName, glm::vec3 position, glm::vec3 rM,
+			float rotationAngle, int checkCollisions=1, int randomID=1);
 
 	int computeMatricesFromInputs();
 
@@ -53,6 +61,7 @@ private:
 	double _currentTime;
 	float _deltaTime;
 	int _nbFrames;
+	glm::vec3 _upVector;
 
 	// GL
 	GLFWwindow *_win;
@@ -92,6 +101,7 @@ private:
 	float _playerForwardSpeed;
 	float _playerBackwardSpeed;
 	float _playerLateralSpeed;
+	float _forcesReductionFactor;
 
 	// Fonts
 	unsigned int _text2DTextureID;

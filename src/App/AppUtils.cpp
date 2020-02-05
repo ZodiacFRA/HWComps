@@ -1,6 +1,29 @@
 #include "App.hpp"
 
 
+int App::createMap()
+{
+	// 1 openGL unit = 1m in Blender
+	// parentNodeName, Node name, Obj name, Shader name,
+	// 		Texture name, Position, (rM, rot_angle, ID)
+	createNode("", "floor", "floor", "StandardShading",
+		"floor", glm::vec3(0, 0, 0));
+
+	createNode("", "borderWall1", "wall", "StandardShading",
+		"wall", glm::vec3(0, 0, 51), _upVector, 0);
+
+	createNode("", "borderWall2", "wall", "StandardShading",
+		"wall", glm::vec3(0, 0, -51), _upVector, PI);
+
+	createNode("", "borderWall3", "wall", "StandardShading",
+		"wall", glm::vec3(51, 0, 0), _upVector, PI + PI / 2);
+
+	createNode("", "borderWall4", "wall", "StandardShading",
+		"wall", glm::vec3(-51, 0, 0), _upVector, PI / 2);
+	return SUCCESS;
+}
+
+
 int App::handleAspectRatio()
 {
 	// Handles window resize, I successfully change the aspectRatio
@@ -83,5 +106,7 @@ int App::loadConstantsFromFile(std::string fileName)
 	}
 	in.close();
 	_camHeight = (_minCamHeight + _maxCamHeight) / 2;
+	float maxFrameForce = sqrt(pow(_playerForwardSpeed, 2) + pow(_playerLateralSpeed, 2));
+	_forcesReductionFactor = _playerForwardSpeed / maxFrameForce;
 	return SUCCESS;
 }

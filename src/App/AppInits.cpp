@@ -95,7 +95,8 @@ int App::initVertexArray()
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
-		std::string textureName, glm::vec3 position, int randomID)
+		std::string textureName, glm::vec3 position, int checkCollisions,
+		int randomID)
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
@@ -129,5 +130,46 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		}
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
-				tmpTexture, position, randomID);
+				tmpTexture, position, checkCollisions, randomID);
+}
+
+
+Node *App::createNode(std::string parentNodeName, std::string nodeName,
+		std::string objName, std::string shaderName,
+		std::string textureName, glm::vec3 position, glm::vec3 rM,
+		float rotationAngle, int checkCollisions, int randomID)
+{
+	Obj *tmpObj = NULL;
+	auto it = _objsLibrary.find(objName);
+	// Add .obj to the node
+	if (it != _objsLibrary.end()) {
+		tmpObj = it->second;
+	} else {
+		printError("Can't create node (Obj does not exist)");
+		return NULL;
+	}
+
+	// Add shader to the node
+	Shader *tmpShader = NULL;
+	auto it1 = _shadersLibrary.find(shaderName);
+	if (it1 != _shadersLibrary.end()) {
+		tmpShader = it1->second;
+	} else {
+		printError("Can't create node (Shader does not exist)");
+		return NULL;
+	}
+
+	// Add texture to the node
+	Texture *tmpTexture = NULL;
+	if (textureName != "") {
+		auto it2 = _textureLibrary.find(textureName);
+		if (it2 != _textureLibrary.end()) {
+			tmpTexture = it2->second;
+		} else {
+			printError("Can't create node (Texture does not exist)");
+			return NULL;
+		}
+	}
+	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
+				tmpTexture, position, rM, rotationAngle, checkCollisions, randomID);
 }

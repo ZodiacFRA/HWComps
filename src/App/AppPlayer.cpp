@@ -56,6 +56,10 @@ int App::handleMove()
 		pitch_d = -_pitch / 2;
 	}
 
+	if (movement[0] != 0 && movement[2] != 0) {
+		movement[0] *= _forcesReductionFactor;
+		movement[2] *= _forcesReductionFactor;
+	}
 	_sceneTree.translateNode("PlayerNode", movement);
 	// glm::vec3 ppmN = _playerNode->modelMatrix[3];
 

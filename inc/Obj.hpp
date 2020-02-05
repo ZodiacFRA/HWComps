@@ -30,6 +30,9 @@ private:
 	GLuint _normalBuffer;
 	GLuint _elementBuffer;
 
+	glm::vec3 _mins;
+	glm::vec3 _maxs;
+
 	int loadFromObjFile(FILE *file);
 	int drawBuffer(GLuint buffer, int attribute, int size);
 };

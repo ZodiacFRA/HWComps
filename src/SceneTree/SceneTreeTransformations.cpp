@@ -9,6 +9,9 @@ int SceneTree::translateNode(std::string nodeName, glm::vec3 tM)
 		node = it->second;
 	else
 		return printError("Can't translate node (Node not found)");
+	// if (node->checkCollisions) {
+	//
+	// }
 	node->modelMatrix = glm::translate(node->modelMatrix, tM);
 	return SUCCESS;
 }

@@ -41,7 +41,6 @@ int Obj::loadObj(std::string filepath)
 	return SUCCESS;
 }
 
-
 int Obj::loadFromObjFile(FILE *file)
 {
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
@@ -57,15 +56,17 @@ int Obj::loadFromObjFile(FILE *file)
 			break;
 
 		if (!strcmp(lineID, "v")) {
+			//   ->  X / Z / Y
 			glm::vec3 vertex;
 			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+			for (int i = 0; i < 3; i++) {
+				_mins[i] = std::max(_mins[i], vertex[i]);
+				_maxs[i] = std::min(_maxs[i], vertex[i]);
+			}
 			tmp_vertices.push_back(vertex);
 		} else if (!strcmp(lineID, "vt")) {
 			glm::vec2 uv;
 			fscanf(file, "%f %f\n", &uv.x, &uv.y);
-			// Invert V coordinate since we will only use DDS textures
-			// which are inverted. Remove if you want to use TGA or BMP loaders.
-			// uv.y = -uv.y;
 			tmp_uvs.push_back(uv);
 		} else if (!strcmp(lineID, "vn")) {
 			glm::vec3 normal;

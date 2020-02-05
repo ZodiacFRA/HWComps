@@ -20,20 +20,9 @@ int App::loadTextureLibrary()
 	_textureLibrary.emplace("dev", tmpTex);
 
 	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/point.bmp", false);
-	_textureLibrary.emplace("point", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/bonus.bmp", false);
-	_textureLibrary.emplace("bonus", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/malus.bmp", false);
-	_textureLibrary.emplace("malus", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/dBlue.bmp", false);
-	_textureLibrary.emplace("dBlue", tmpTex);
+	tmpTex->loadTexture("./data/textures/wall.bmp", false);
+	_textureLibrary.emplace("wall", tmpTex);
+	
 	return SUCCESS;
 }
 
@@ -48,10 +37,6 @@ int App::loadObjsLibrary()
 	tmpObj->loadObj("./data/objs/cube.obj");
 	_objsLibrary.emplace("cube", tmpObj);
 
-	tmpObj = new Obj("rect");
-	tmpObj->loadObj("./data/objs/rect.obj");
-	_objsLibrary.emplace("rectFloor", tmpObj);
-
 	tmpObj = new Obj("Player");
 	tmpObj->loadObj("./data/objs/Player.obj");
 	_objsLibrary.emplace("Player", tmpObj);
@@ -60,25 +45,9 @@ int App::loadObjsLibrary()
 	tmpObj->loadObj("./data/objs/floor.obj");
 	_objsLibrary.emplace("floor", tmpObj);
 
-	tmpObj = new Obj("obs1L");
-	tmpObj->loadObj("./data/objs/obs1L.obj");
-	_objsLibrary.emplace("obs1L", tmpObj);
-
-	tmpObj = new Obj("obs0R");
-	tmpObj->loadObj("./data/objs/obs0R.obj");
-	_objsLibrary.emplace("obs0R", tmpObj);
-
-	tmpObj = new Obj("obs1R");
-	tmpObj->loadObj("./data/objs/obs1R.obj");
-	_objsLibrary.emplace("obs1R", tmpObj);
-
-	tmpObj = new Obj("point");
-	tmpObj->loadObj("./data/objs/point.obj");
-	_objsLibrary.emplace("point", tmpObj);
-
-	tmpObj = new Obj("bonus");
-	tmpObj->loadObj("./data/objs/bonus.obj");
-	_objsLibrary.emplace("bonus", tmpObj);
+	tmpObj = new Obj("wall");
+	tmpObj->loadObj("./data/objs/wall.obj");
+	_objsLibrary.emplace("wall", tmpObj);
 
 	tmpObj = new Obj("malus");
 	tmpObj->loadObj("./data/objs/malus.obj");

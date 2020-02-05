@@ -12,6 +12,8 @@ struct Node {
 	glm::mat4 modelMatrix;
 	int randomID;  // Used for the random animation of the props
 
+	int checkCollisions = true;
+
 	Node *parent;
 	std::vector<Node *> childs;
 
@@ -33,7 +35,13 @@ public:
 
 	Node *insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
+			int checkCollisions, int randomID=-1);
+
+	Node *insert(std::string parentName, std::string name, Obj *obj,
+			Shader *shader, Texture *texture, glm::vec3 position,
+			glm::vec3 rM, float rotationAngle, int checkCollisions,
 			int randomID=-1);
+
 	int remove(std::string nodeName);
 
 	Node *getNode(std::string nodeName);

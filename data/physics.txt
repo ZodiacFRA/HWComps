@@ -12,6 +12,6 @@ _maxRollAngle/0.2
 _maxForwardAngle/0.2
 _maxBackwardAngle/0.1
 
-_playerForwardSpeed/0.7
-_playerBackwardSpeed/0.3
-_playerLateralSpeed/0.5
+_playerForwardSpeed/0.4
+_playerBackwardSpeed/0.2
+_playerLateralSpeed/0.3

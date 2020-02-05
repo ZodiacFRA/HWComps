@@ -18,6 +18,35 @@ SceneTree::~SceneTree()
 
 Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
+			int checkCollisions, int randomID)
+{
+	if (_nodes.find(name) != _nodes.end()) {
+		printError("Node name already taken");
+		return NULL;
+	}
+	Node *parentNode;
+	if (parentName == "")  // TERNAIRE
+		parentNode = &_root;
+	else
+		parentNode = _nodes[parentName];
+	Node *newNode = new Node;
+	newNode->name = name;
+	newNode->checkCollisions = checkCollisions;
+	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
+	newNode->randomID = randomID;
+	newNode->parent = parentNode;
+	newNode->obj = obj;
+	newNode->shader = shader;
+	newNode->texture = texture;
+	parentNode->childs.push_back(newNode);
+	_nodes.emplace(name, newNode);
+	return newNode;
+}
+
+
+Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
+			Shader *shader, Texture *texture, glm::vec3 position,
+			glm::vec3 rM, float rotationAngle, int checkCollisions,
 			int randomID)
 {
 	if (_nodes.find(name) != _nodes.end()) {
@@ -31,7 +60,11 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 		parentNode = _nodes[parentName];
 	Node *newNode = new Node;
 	newNode->name = name;
+	newNode->checkCollisions = checkCollisions;
 	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
+	newNode->modelMatrix = 	glm::rotate(
+			newNode->modelMatrix, rotationAngle, rM
+		),
 	newNode->randomID = randomID;
 	newNode->parent = parentNode;
 	newNode->obj = obj;
