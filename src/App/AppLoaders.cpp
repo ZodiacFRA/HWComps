@@ -3,55 +3,32 @@
 
 int App::loadTextureLibrary()
 {
-	Texture *tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/Player.bmp", false);
-	_textureLibrary.emplace("Player", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/floor.bmp", false);
-	_textureLibrary.emplace("floor", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/cube.bmp", false);
-	_textureLibrary.emplace("cube", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/dev.bmp", false);
-	_textureLibrary.emplace("dev", tmpTex);
-
-	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/wall.bmp", false);
-	_textureLibrary.emplace("wall", tmpTex);
-	
+	std::vector<std::string> files = getDirFilenamesList("./data/textures");
+	Texture *tmpTex;
+	std::string path = "./data/textures/";
+	for (auto file : files) {
+		std::string tmp = path + file;
+		std::vector<std::string> splitted = splitString(file, '.');
+		tmpTex = new Texture();
+		tmpTex->loadTexture(tmp.c_str(), false);
+		_textureLibrary.emplace(splitted[0], tmpTex);
+	}
 	return SUCCESS;
 }
 
 
 int App::loadObjsLibrary()
 {
-	Obj *tmpObj = new Obj("axis"); // Name of the mesh itself
-	tmpObj->loadObj("./data/objs/axis.obj");
-	_objsLibrary.emplace("axis", tmpObj);
-
-	tmpObj = new Obj("cube");
-	tmpObj->loadObj("./data/objs/cube.obj");
-	_objsLibrary.emplace("cube", tmpObj);
-
-	tmpObj = new Obj("Player");
-	tmpObj->loadObj("./data/objs/Player.obj");
-	_objsLibrary.emplace("Player", tmpObj);
-
-	tmpObj = new Obj("floor");
-	tmpObj->loadObj("./data/objs/floor.obj");
-	_objsLibrary.emplace("floor", tmpObj);
-
-	tmpObj = new Obj("wall");
-	tmpObj->loadObj("./data/objs/wall.obj");
-	_objsLibrary.emplace("wall", tmpObj);
-
-	tmpObj = new Obj("malus");
-	tmpObj->loadObj("./data/objs/malus.obj");
-	_objsLibrary.emplace("malus", tmpObj);
+	std::vector<std::string> files = getDirFilenamesList("./data/objs");
+	Obj *tmpObj;
+	std::string path = "./data/objs/";
+	for (auto file : files) {
+		std::string tmp = path + file;
+		std::vector<std::string> splitted = splitString(file, '.');
+		tmpObj = new Obj(splitted[0]);
+		tmpObj->loadObj(tmp.c_str());
+		_objsLibrary.emplace(splitted[0], tmpObj);
+	}
 	return SUCCESS;
 }
 

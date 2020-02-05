@@ -18,7 +18,7 @@ int App::setupScene()
 	// 1 openGL unit = 1m in Blender
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
-		"Player", glm::vec3(0, 0, 0));
+		"cube", glm::vec3(0, 0, 0));
 
 	createMap();
 	return SUCCESS;
@@ -40,7 +40,7 @@ int App::run()
 
 			// Draw info text
 			char text[256];
-			sprintf(text,"FPS: %f", _pitch);
+			sprintf(text,"FPS: %f", _fps);
 			printText2D(text, 0, 570, 20);
 
 			// Swap buffers

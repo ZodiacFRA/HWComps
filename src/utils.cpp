@@ -33,3 +33,23 @@ std::vector<std::string> splitString(std::string strToSplit, char delimeter)
     }
     return splittedStrings;
 }
+
+
+std::vector<std::string> getDirFilenamesList(std::string dirPath)
+{
+	DIR *dir;
+	struct dirent *ent;
+	std::vector<std::string> res;
+
+	if ((dir = opendir(dirPath.c_str())) != NULL) {
+		while ((ent = readdir(dir)) != NULL) {
+			if ((int)ent->d_type == 8)
+				res.push_back(ent->d_name);
+		}
+		closedir(dir);
+	} else {
+		perror ("");
+		return res;
+	}
+	return res;
+}

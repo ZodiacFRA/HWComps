@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h> // for memcmp
+#include <dirent.h>
 #include <cstring>
 #include <stdio.h>
 #include <fstream>
@@ -50,3 +51,4 @@
 int printError(std::string msg);
 float getRandomFloat(float min, float max);
 std::vector<std::string> splitString(std::string strToSplit, char delimeter);
+std::vector<std::string> getDirFilenamesList(std::string dirPath);
