@@ -82,6 +82,12 @@ private:
 	Node *_playerNode;
 	float _jumpStart;
 	float _yaw;
+	float _pitch;
+	float _roll;
+
+	float _maxRollAngle;
+	float _maxForwardAngle;
+	float _maxBackwardAngle;
 
 	float _playerForwardSpeed;
 	float _playerBackwardSpeed;

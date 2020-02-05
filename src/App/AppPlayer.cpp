@@ -29,18 +29,41 @@ int App::handleMove()
 	if (glfwGetKey(_win, GLFW_KEY_ENTER) == GLFW_PRESS)
 		loadConstantsFromFile("./data/physics.txt");
 
+	float roll_d = 0.0;
+	float pitch_d = 0.0;
+	float rot_speed = 0.1;
+
 	if (glfwGetKey(_win, GLFW_KEY_A) == GLFW_PRESS) {
 		movement[0] += _playerLateralSpeed;
+		if (_roll > -_maxRollAngle)
+			roll_d -= rot_speed;
 	} else if (glfwGetKey(_win, GLFW_KEY_D) == GLFW_PRESS) {
 		movement[0] -= _playerLateralSpeed;
+		if (_roll < _maxRollAngle)
+			roll_d += rot_speed;
+	} else {
+		roll_d = -_roll / 2;
 	}
 	if (glfwGetKey(_win, GLFW_KEY_W) == GLFW_PRESS) {
 		movement[2] += _playerForwardSpeed;
+		if (_pitch < _maxForwardAngle)
+			pitch_d += rot_speed;
 	} else if (glfwGetKey(_win, GLFW_KEY_S) == GLFW_PRESS) {
 		movement[2] -= _playerBackwardSpeed;
+		if (_pitch > -_maxBackwardAngle)
+			pitch_d -= rot_speed;
+	} else {
+		pitch_d = -_pitch / 2;
 	}
 
 	_sceneTree.translateNode("PlayerNode", movement);
+	// glm::vec3 ppmN = _playerNode->modelMatrix[3];
+
+	// _sceneTree.rotateNodeRad("PlayerNode", roll_d, glm::vec3(0, 0, 1));
+	// _sceneTree.rotateNodeRad("PlayerNode", pitch_d, glm::vec3(1, 0, 0));
+
+	_roll += roll_d;
+	_pitch += pitch_d;
 	return SUCCESS;
 }
 

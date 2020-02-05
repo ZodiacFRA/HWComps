@@ -45,7 +45,7 @@ int App::run()
 
 			// Draw info text
 			char text[256];
-			sprintf(text,"FPS: %f", _camHeight);
+			sprintf(text,"FPS: %f", _pitch);
 			printText2D(text, 0, 570, 20);
 
 			// Swap buffers

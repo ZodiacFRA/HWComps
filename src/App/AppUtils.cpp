@@ -59,8 +59,21 @@ int App::loadConstantsFromFile(std::string fileName)
 			_camHeightOffset = std::stof(splitted[1], NULL);
 		if (splitted[0] == "_fov")
 			_fov = std::stof(splitted[1], NULL);
+
 		if (splitted[0] == "_yaw")
 			_yaw = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_pitch")
+			_pitch = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_roll")
+			_roll = std::stof(splitted[1], NULL);
+
+		if (splitted[0] == "_maxRollAngle")
+			_maxRollAngle = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_maxForwardAngle")
+			_maxForwardAngle = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_maxBackwardAngle")
+			_maxBackwardAngle = std::stof(splitted[1], NULL);
+
 		if (splitted[0] == "_playerForwardSpeed")
 			_playerForwardSpeed = std::stof(splitted[1], NULL);
 		if (splitted[0] == "_playerBackwardSpeed")
