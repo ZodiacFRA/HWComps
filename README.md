@@ -25,9 +25,10 @@ Note: there will be no support or labs for using different tools.
 To complete this coursework, you will need to create a level that includes the following required
 components:
 
-a particle explosion effect,
-an object with rigid body physics (no rotations),
-crowd or flocking interaction between objects,
-and an A* path-planning search.
+- a particle explosion effect
+- an object with rigid body physics (no rotations)
+- crowd or flocking interaction between objects
+- an A* path-planning search.
+
 You will be asked to demo and explain your work in the lab sessions in Weeks 7 and Week 8.
 An online poll will be run in week 5, so you can decide your slot to demo your coursework.
