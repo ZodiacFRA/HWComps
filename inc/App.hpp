@@ -15,6 +15,8 @@ public:
 	int run();
 
 private:
+	int loadConstantsFromFile(std::string fileName);
+
 	int initGLFW();
 	int initGLEW();
 	int initVertexArray();
@@ -23,6 +25,7 @@ private:
 	int initShaders();
 	int loadObjsLibrary();
 	int loadTextureLibrary();
+
 
 	int setupScene();
 	Node *createNode(std::string parentNodeName, std::string nodeName,
@@ -79,8 +82,6 @@ private:
 	Node *_playerNode;
 	float _jumpStart;
 	float _yaw;
-
-	float _delta;
 
 	float _playerForwardSpeed;
 	float _playerBackwardSpeed;

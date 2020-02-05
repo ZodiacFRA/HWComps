@@ -10,8 +10,7 @@ int App::computeMatricesFromInputs()
 				ppM[2] + ((_radius * cos(_camHeight)) * cos(_yaw))
 	);
 
-	// Mouse is already updated in handle_move() (AppPlayer.cpp)
-
+	// _yMouse is already updated in handle_move() (AppPlayer.cpp)
 	_camHeight += (MOUSE_V_MOV_SPEED * float(_winHeight / 2 - _yMouse));
 	if (_camHeight > _maxCamHeight)
 		_camHeight = _maxCamHeight;

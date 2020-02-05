@@ -49,3 +49,4 @@
 
 int printError(std::string msg);
 float getRandomFloat(float min, float max);
+std::vector<std::string> splitString(std::string strToSplit, char delimeter);

@@ -1,0 +1,10 @@
+_radius/4.0
+_minCamHeight/2.0
+_maxCamHeight/3.0
+_camHeightOffset/1.0
+_fov/100.0
+
+_yaw/0.0
+_playerForwardSpeed/0.7
+_playerBackwardSpeed/0.3
+_playerLateralSpeed/0.5

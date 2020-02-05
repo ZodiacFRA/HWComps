@@ -4,14 +4,16 @@
 App::App()
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
 	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
-	_radius(10.0), _minCamHeight(2.0), _maxCamHeight(3.0), // inverted angle?
-	_camHeight((_minCamHeight + _maxCamHeight) / 2),
-	_camHeightOffset(1.0), _fov(100.0),
+	// _radius(10.0), _minCamHeight(2.0), _maxCamHeight(3.0), // inverted angle?
+	// _camHeight((_minCamHeight + _maxCamHeight) / 2),
+	// _camHeightOffset(1.0), _fov(100.0),
 	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
-	_jumpStart(0.0), _yaw(0.0),
-	_playerForwardSpeed(0.7), _playerBackwardSpeed(0.3), _playerLateralSpeed(0.5)
+	_jumpStart(0.0)
+	// _yaw(0.0), _playerForwardSpeed(0.7),
+	// _playerBackwardSpeed(0.3), _playerLateralSpeed(0.5)
 {
-	printf("_camHeight: %f\n", _camHeight);
+	loadConstantsFromFile("./data/physics.txt");
+	// Is also called in AppPlayer.cpp handleMove() for hot reload
 }
 
 

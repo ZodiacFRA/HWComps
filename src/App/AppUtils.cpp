@@ -35,3 +35,40 @@ int App::handleTime()
 	}
 	return false;
 }
+
+
+int App::loadConstantsFromFile(std::string fileName)
+{
+	std::ifstream in(fileName.c_str());
+	if (!in)
+		return printError("Cannot open physics file");
+
+	std::string str;
+	// Read the next line from File untill it reaches the end.
+	while (std::getline(in, str)) {
+		if (str.size() <= 0)
+			continue;
+		std::vector<std::string> splitted = splitString(str, '/');
+		if (splitted[0] == "_radius")
+			_radius = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_minCamHeight")
+			_minCamHeight = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_maxCamHeight")
+			_maxCamHeight = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_camHeightOffset")
+			_camHeightOffset = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_fov")
+			_fov = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_yaw")
+			_yaw = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_playerForwardSpeed")
+			_playerForwardSpeed = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_playerBackwardSpeed")
+			_playerBackwardSpeed = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_playerLateralSpeed")
+			_playerLateralSpeed = std::stof(splitted[1], NULL);
+	}
+	in.close();
+	_camHeight = (_minCamHeight + _maxCamHeight) / 2;
+	return SUCCESS;
+}
