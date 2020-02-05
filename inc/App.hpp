@@ -29,8 +29,7 @@ private:
 			std::string objName, std::string shaderName,
 			std::string textureName, glm::vec3 position, int randomID=-1);
 
-	int computeMatricesFromInputs(bool perspective_cam, float fov,
-					bool controlled);
+	int computeMatricesFromInputs();
 
 	int handleTime();
 	int handleAspectRatio();
@@ -51,8 +50,6 @@ private:
 	double _currentTime;
 	float _deltaTime;
 	int _nbFrames;
-	float _worldSpeed;
-	float _distMoved;  // Score?
 
 	// GL
 	GLFWwindow *_win;
@@ -62,24 +59,29 @@ private:
 	glm::mat4 _viewMatrix;
 
 	// Camera
+	float _radius;
+    float _minCamHeight;
+    float _maxCamHeight;
+    float _camHeightOffset;
+	float _fov;
+
 	glm::vec3 _camPos;
 	float _hAngle;
 	float _vAngle;
 	double _xMouse;
 	double _yMouse;
 
-	// TODO rename to _shadersLibrary
 	std::map<std::string, Shader *> _shadersLibrary;
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;
 
-	// Decor
-	std::map<std::string, Node *> _sceneryNodes;
-
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
+	float _playerForwardSpeed;
+	float _playerBackwardSpeed;
+	float _playerLateralSpeed;
 
 	// Fonts
 	unsigned int _text2DTextureID;

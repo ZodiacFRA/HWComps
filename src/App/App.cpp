@@ -4,11 +4,12 @@
 App::App()
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
 	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
-	// Only 2 decimals allowed on worldspeed, multiple of 2
-	_worldSpeed(0.25), _distMoved(0.0),
-	_camPos(glm::vec3(0, 15, 10)),  // RIGHT / HEIGHT / FRONT
+
+	_radius(1.0), _camHeightOffset(1.0), _fov(100.0),
+	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
 	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),  // camera lookat
-	_jumpStart(0.0), _shake(false)  // Game parameters
+	_jumpStart(0.0), _playerForwardSpeed(0.7), _playerBackwardSpeed(0.3),
+	_playerLateralSpeed(0.5), _shake(false)
 {}
 
 
@@ -34,8 +35,7 @@ int App::run()
 
 			handlePlayerMovement();
 
-			if (!this->computeMatricesFromInputs(true, 100.0f, true))
-			// if (!this->computeMatricesFromInputs(true, 40.0f, false))
+			if (!this->computeMatricesFromInputs())
 				return FAILURE;
 
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);

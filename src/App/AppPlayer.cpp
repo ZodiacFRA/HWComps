@@ -9,41 +9,29 @@ int App::handlePlayerMovement()
 	return SUCCESS;
 }
 
-
 int App::handleMove()
 {
-	static int moveDirection = 0;  // -1 = left, 0 = None, 1 = right
-	glm::vec3 playerPosMatrix = _playerNode->modelMatrix[3];
+	glm::vec3 movement = glm::vec3(0, 0, 0);
 
 	bool goLeft = glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS;
 	bool goRight = glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_PRESS;
-	static bool hasReleasedLeft = true;
-	static bool hasReleasedRight = true;
-	hasReleasedLeft |= glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_RELEASE;
-	hasReleasedRight |= glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_RELEASE;
+	bool goForward = glfwGetKey(_win, GLFW_KEY_UP) == GLFW_PRESS;
+	bool goBackward = glfwGetKey(_win, GLFW_KEY_DOWN) == GLFW_PRESS;
 
-	if (goLeft && hasReleasedLeft && playerPosMatrix[0] != -2.0) {
-		// playSound("move");
-		moveDirection = -1;
-		hasReleasedLeft = false;
-	} else if (goRight && hasReleasedRight && playerPosMatrix[0] != 2.0) {
-		moveDirection = 1;
-		hasReleasedRight = false;
-		// playSound("move");
-	} else if (playerPosMatrix[0] == -2.0 || playerPosMatrix[0] == 2.0 ||
-		(playerPosMatrix[0] >= -0.1 && playerPosMatrix[0] <= 0.1)) {
-		moveDirection = 0;
+	if (goLeft) {
+		movement[0] += _playerLateralSpeed;
+	} else if (goRight) {
+		movement[0] -= _playerLateralSpeed;
 	}
-	if (moveDirection == -1 && playerPosMatrix[0] > -1.9) {
-		_sceneTree.translateNode("PlayerNode",
-				glm::vec3(-0.4, 0, 0));
-	} else if (moveDirection == 1 && playerPosMatrix[0] <= 1.9) {
-			_sceneTree.translateNode("PlayerNode",
-					glm::vec3(0.4, 0, 0));
+	if (goForward) {
+		movement[2] += _playerForwardSpeed;
+	} else if (goBackward) {
+		movement[2] -= _playerBackwardSpeed;
 	}
+
+	_sceneTree.translateNode("PlayerNode", movement);
 	return SUCCESS;
 }
-
 
 int App::handleJump()
 {
@@ -54,13 +42,13 @@ int App::handleJump()
 		if (jumpFlag) {
 			_jumpStart = _currentTime;
 			_sceneTree.setNodePosition("PlayerNode",
-				glm::vec3(playerPosMatrix[0], 0.1, 0));
+				glm::vec3(playerPosMatrix[0], 0.1, playerPosMatrix[2]));
 		}
 	} else {  // Already in a jump
 		float deltaT = _currentTime - _jumpStart;
 		float height = 1.5 * sin(12 * deltaT + ((3.3 * PI) / 2)) + 1.5;
 		_sceneTree.setNodePosition("PlayerNode",
-				glm::vec3(playerPosMatrix[0], height, 0));
+				glm::vec3(playerPosMatrix[0], height, playerPosMatrix[2]));
 	}
 	return SUCCESS;
 }
