@@ -43,6 +43,7 @@ public:
 	int translateNode(std::string nodeName, glm::vec3 tM);
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
+	int rotateNodeRad(std::string nodeName, float rads, glm::vec3 rM);
 	int scaleNode(std::string nodeName, glm::vec3 sM);
 	int setNodeScale(std::string nodeName, glm::vec3 sM);
 	// DOES NOT WORK

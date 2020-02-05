@@ -4,25 +4,26 @@
 App::App()
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
 	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
-
-	_radius(1.0), _camHeightOffset(1.0), _fov(100.0),
+	_radius(10.0), _minCamHeight(2.0), _maxCamHeight(3.0), // inverted angle?
+	_camHeight((_minCamHeight + _maxCamHeight) / 2),
+	_camHeightOffset(1.0), _fov(100.0),
 	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
-	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),  // camera lookat
-	_jumpStart(0.0), _playerForwardSpeed(0.7), _playerBackwardSpeed(0.3),
-	_playerLateralSpeed(0.5), _shake(false)
-{}
+	_jumpStart(0.0), _yaw(0.0),
+	_playerForwardSpeed(0.7), _playerBackwardSpeed(0.3), _playerLateralSpeed(0.5)
+{
+	printf("_camHeight: %f\n", _camHeight);
+}
 
 
 int App::setupScene()
 {
 	// 1 openGL unit = 1m in Blender
-
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
 		"Player", glm::vec3(0, 0, 0));
 
 	createNode("", "terrainMidNode", "floor", "StandardShading",
-		"floor", glm::vec3(0, 0, PROP_SPAWN));
+		"floor", glm::vec3(0, -1, 0));
 	return SUCCESS;
 }
 
@@ -42,7 +43,7 @@ int App::run()
 
 			// Draw info text
 			char text[256];
-			sprintf(text,"FPS: %f", _fps);
+			sprintf(text,"FPS: %f", _camHeight);
 			printText2D(text, 0, 570, 20);
 
 			// Swap buffers

@@ -62,12 +62,11 @@ private:
 	float _radius;
     float _minCamHeight;
     float _maxCamHeight;
+	float _camHeight;
     float _camHeightOffset;
 	float _fov;
 
 	glm::vec3 _camPos;
-	float _hAngle;
-	float _vAngle;
 	double _xMouse;
 	double _yMouse;
 
@@ -79,6 +78,10 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
+	float _yaw;
+
+	float _delta;
+
 	float _playerForwardSpeed;
 	float _playerBackwardSpeed;
 	float _playerLateralSpeed;
@@ -92,8 +95,4 @@ private:
 	Texture _fontTexture;
 	Shader _fontShader;
 	float _fps;
-
-	// ShakeScreen
-	bool _shake;
-	double _shakeStartTime;
 };

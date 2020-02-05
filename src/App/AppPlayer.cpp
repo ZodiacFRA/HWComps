@@ -11,12 +11,26 @@ int App::handlePlayerMovement()
 
 int App::handleMove()
 {
+	// Get mouse position
+	glfwGetCursorPos(_win, &_xMouse, &_yMouse);
+	// Reset mouse position for next frame
+	glfwSetCursorPos(_win, _winWidth / 2, _winHeight / 2);
+
+	_delta = MOUSE_H_MOV_SPEED * float(_winWidth / 2 - _xMouse);
+	_yaw += _delta;
+	if (_yaw >= 2 * PI) {
+		_yaw -= 2 * PI;
+	} else if (_yaw <= 0) {
+		_yaw += 2 * PI;
+	}
+
+	_sceneTree.rotateNodeRad("PlayerNode", _delta, glm::vec3(0, 1, 0));
 	glm::vec3 movement = glm::vec3(0, 0, 0);
 
-	bool goLeft = glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS;
-	bool goRight = glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_PRESS;
-	bool goForward = glfwGetKey(_win, GLFW_KEY_UP) == GLFW_PRESS;
-	bool goBackward = glfwGetKey(_win, GLFW_KEY_DOWN) == GLFW_PRESS;
+	bool goLeft = glfwGetKey(_win, GLFW_KEY_A) == GLFW_PRESS;
+	bool goRight = glfwGetKey(_win, GLFW_KEY_D) == GLFW_PRESS;
+	bool goForward = glfwGetKey(_win, GLFW_KEY_W) == GLFW_PRESS;
+	bool goBackward = glfwGetKey(_win, GLFW_KEY_S) == GLFW_PRESS;
 
 	if (goLeft) {
 		movement[0] += _playerLateralSpeed;

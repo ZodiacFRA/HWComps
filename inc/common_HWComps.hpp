@@ -30,17 +30,14 @@
 
 #define PI 3.14159265
 
-#define PROP_SPAWN -24
-#define PROP_END 5
-
 #define WIN_WIDTH 1920/2
 #define WIN_HEIGHT 1052
 #define WIN_NAME "HWGL"
 
 #define BG_COLOR 0, 0, 0, 0
 
-#define CAM_MOV_SPEED 60.0f
-#define MOUSE_MOV_SPEED 0.0001f
+#define MOUSE_H_MOV_SPEED 0.001f
+#define MOUSE_V_MOV_SPEED 0.00005f
 
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"

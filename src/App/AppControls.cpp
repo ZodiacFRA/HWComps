@@ -3,14 +3,20 @@
 
 int App::computeMatricesFromInputs()
 {
-	glm::vec3 playerPosMatrix = _playerNode->modelMatrix[3];
-	// Get mouse position
-	glfwGetCursorPos(_win, &_xMouse, &_yMouse);
-	// Reset mouse position for next frame
-	glfwSetCursorPos(_win, _winWidth / 2, _winHeight / 2);
-	// Compute new orientation
-	_hAngle += MOUSE_MOV_SPEED * float(_winWidth / 2 - _xMouse);
-	_vAngle += MOUSE_MOV_SPEED * float(_winHeight / 2 - _yMouse);
+	glm::vec3 ppM = _playerNode->modelMatrix[3];
+	_camPos = glm::vec3(
+				ppM[0] + ((_radius * cos(_camHeight)) * sin(_yaw)),
+				ppM[1] + (_radius * sin(_camHeight)),
+				ppM[2] + ((_radius * cos(_camHeight)) * cos(_yaw))
+	);
+
+	// Mouse is already updated in handle_move() (AppPlayer.cpp)
+
+	_camHeight += (MOUSE_V_MOV_SPEED * float(_winHeight / 2 - _yMouse));
+	if (_camHeight > _maxCamHeight)
+		_camHeight = _maxCamHeight;
+	else if (_camHeight < _minCamHeight)
+		_camHeight = _minCamHeight;
 
 	// fov, ratio, display range
 	_projectionMatrix = glm::perspective(
@@ -21,9 +27,9 @@ int App::computeMatricesFromInputs()
 	_viewMatrix = glm::lookAt(
 			_camPos,
 			glm::vec3(
-				playerPosMatrix[0],
-				playerPosMatrix[1] + _camHeightOffset,
-				playerPosMatrix[2]),
+				ppM[0],
+				ppM[1] + _camHeightOffset,
+				ppM[2]),
 			glm::vec3(0, 1, 0));  // Up vector
 	return SUCCESS;
 }
