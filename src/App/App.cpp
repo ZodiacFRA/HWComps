@@ -18,7 +18,7 @@ int App::setupScene()
 	// 1 openGL unit = 1m in Blender
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
-		"cube", glm::vec3(0, 0, 0));
+		"cube", glm::vec3(0, 0, 0), 1, 1, -1);
 
 	createMap();
 	return SUCCESS;
@@ -32,7 +32,8 @@ int App::run()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			handlePlayerMovement();
-
+			_playerCanJump = _sceneTree.applyGravity(_gravityValue);
+			// std::cout << _playerCanJump << '\n';
 			if (!this->computeMatricesFromInputs())
 				return FAILURE;
 

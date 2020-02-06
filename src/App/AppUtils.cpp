@@ -20,6 +20,9 @@ int App::createMap()
 
 	createNode("", "borderWall4", "wall4", "StandardShading",
 		"wall", glm::vec3(0, 0, 0));
+
+	createNode("", "cubetest", "cube", "StandardShading",
+		"cube", glm::vec3(3, 1, 3));
 	return SUCCESS;
 }
 
@@ -103,6 +106,11 @@ int App::loadConstantsFromFile(std::string fileName)
 			_playerBackwardSpeed = std::stof(splitted[1], NULL);
 		if (splitted[0] == "_playerLateralSpeed")
 			_playerLateralSpeed = std::stof(splitted[1], NULL);
+
+		if (splitted[0] == "_gravityValue")
+			_gravityValue = std::stof(splitted[1], NULL);
+		if (splitted[0] == "_jumpFactor")
+			_jumpFactor = std::stof(splitted[1], NULL);
 	}
 	in.close();
 	_camHeight = (_minCamHeight + _maxCamHeight) / 2;

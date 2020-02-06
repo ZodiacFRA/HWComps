@@ -16,9 +16,26 @@ SceneTree::~SceneTree()
 }
 
 
+int SceneTree::applyGravity(float gravityValue)
+{
+	for (auto node : _nodes) {
+		if (node.second->applyGravity) {
+			float flag = translateNode(node.second, glm::vec3(0, gravityValue, 0));
+			if (node.first == "PlayerNode") {
+				if (flag == 2)
+					return 1;
+				else
+					return 0;
+			}
+		}
+	}
+	return SUCCESS;
+}
+
+
 Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
-			int checkCollisions, int randomID)
+			int checkCollisions, int applyGravity, int randomID)
 {
 	if (_nodes.find(name) != _nodes.end()) {
 		printError("Node name already taken");
@@ -32,6 +49,7 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 	Node *newNode = new Node;
 	newNode->name = name;
 	newNode->checkCollisions = checkCollisions;
+	newNode->applyGravity = applyGravity;
 	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
 	newNode->randomID = randomID;
 	newNode->parent = parentNode;
@@ -47,7 +65,7 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
 			glm::vec3 rM, float rotationAngle, int checkCollisions,
-			int randomID)
+			int applyGravity, int randomID)
 {
 	if (_nodes.find(name) != _nodes.end()) {
 		printError("Node name already taken");
@@ -61,6 +79,7 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 	Node *newNode = new Node;
 	newNode->name = name;
 	newNode->checkCollisions = checkCollisions;
+	newNode->applyGravity = applyGravity;
 	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
 	newNode->modelMatrix = 	glm::rotate(
 			newNode->modelMatrix, rotationAngle, rM

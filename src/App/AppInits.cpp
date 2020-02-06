@@ -96,7 +96,7 @@ int App::initVertexArray()
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position, int checkCollisions,
-		int randomID)
+		int applyGravity, int randomID)
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
@@ -130,14 +130,14 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		}
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
-				tmpTexture, position, checkCollisions, randomID);
+				tmpTexture, position, checkCollisions, applyGravity, randomID);
 }
 
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position, glm::vec3 rM,
-		float rotationAngle, int checkCollisions, int randomID)
+		float rotationAngle, int checkCollisions, int applyGravity, int randomID)
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
@@ -171,5 +171,6 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		}
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
-				tmpTexture, position, rM, rotationAngle, checkCollisions, randomID);
+				tmpTexture, position, rM, rotationAngle, checkCollisions,
+				applyGravity, randomID);
 }

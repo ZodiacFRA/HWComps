@@ -13,6 +13,7 @@ struct Node {
 	int randomID;  // Used for the random animation of the props
 
 	int checkCollisions = true;
+	int applyGravity = false;
 
 	Node *parent;
 	std::vector<Node *> childs;
@@ -35,12 +36,12 @@ public:
 
 	Node *insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
-			int checkCollisions, int randomID=-1);
+			int checkCollisions, int applyGravity, int randomID);
 
 	Node *insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position,
 			glm::vec3 rM, float rotationAngle, int checkCollisions,
-			int randomID=-1);
+			int applyGravity, int randomID);
 
 	int remove(std::string nodeName);
 
@@ -50,7 +51,11 @@ public:
 	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 
 	int isColliding(Node *n1, glm::vec3 nextPos, Node *n2);
+	int applyGravity(float gravityValue);
+
 	int translateNode(std::string nodeName, glm::vec3 tM);
+	int translateNode(Node *node, glm::vec3 tM);
+
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
 	int rotateNodeRad(std::string nodeName, float rads, glm::vec3 rM);

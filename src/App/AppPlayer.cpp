@@ -3,8 +3,9 @@
 
 int App::handlePlayerMovement()
 {
-	handleJump();
 	handleMove();
+	handleJump();
+
 	// -1 / (1 + exp(x - 4)) + 1
 	return SUCCESS;
 }
@@ -60,7 +61,9 @@ int App::handleMove()
 		movement[0] *= _forcesReductionFactor;
 		movement[2] *= _forcesReductionFactor;
 	}
-	_sceneTree.translateNode("PlayerNode", movement);
+
+	_sceneTree.translateNode(_playerNode, movement);
+
 	// glm::vec3 ppmN = _playerNode->modelMatrix[3];
 
 	// _sceneTree.rotateNodeRad("PlayerNode", roll_d, glm::vec3(0, 0, 1));
@@ -73,20 +76,13 @@ int App::handleMove()
 
 int App::handleJump()
 {
-	glm::vec3 playerPosMatrix = _playerNode->modelMatrix[3];
-
-	bool jumpFlag = glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS;
-	if (playerPosMatrix[1] < 0.1) {  // Can jump
-		if (jumpFlag) {
-			_jumpStart = _currentTime;
-			_sceneTree.setNodePosition("PlayerNode",
-				glm::vec3(playerPosMatrix[0], 0.1, playerPosMatrix[2]));
-		}
-	} else {  // Already in a jump
-		float deltaT = _currentTime - _jumpStart;
-		float height = 1.5 * sin(12 * deltaT + ((3.3 * PI) / 2)) + 1.5;
-		_sceneTree.setNodePosition("PlayerNode",
-				glm::vec3(playerPosMatrix[0], height, playerPosMatrix[2]));
+	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS && _playerCanJump)
+		_jumpStart = _currentTime;
+	float deltaT = _currentTime - _jumpStart;
+	float force = -log(deltaT) * _jumpFactor;
+	if (force > 0) {
+		glm::vec3 jumpForce = glm::vec3(0, force, 0);
+		_sceneTree.translateNode("PlayerNode", jumpForce);
 	}
 	return SUCCESS;
 }

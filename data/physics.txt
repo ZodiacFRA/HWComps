@@ -15,3 +15,6 @@ _maxBackwardAngle/0.1
 _playerForwardSpeed/0.4
 _playerBackwardSpeed/0.2
 _playerLateralSpeed/0.3
+
+_gravityValue/-0.2
+_jumpFactor/0.1
