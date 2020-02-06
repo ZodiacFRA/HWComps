@@ -9,17 +9,17 @@ int App::createMap()
 	createNode("", "floor", "floor", "StandardShading",
 		"floor", glm::vec3(0, 0, 0));
 
-	createNode("", "borderWall1", "wall", "StandardShading",
-		"wall", glm::vec3(0, 0, 51), _upVector, 0);
+	createNode("", "borderWall1", "wall1", "StandardShading",
+		"wall", glm::vec3(0, 0, 0));
 
-	createNode("", "borderWall2", "wall", "StandardShading",
-		"wall", glm::vec3(0, 0, -51), _upVector, PI);
+	createNode("", "borderWall2", "wall2", "StandardShading",
+		"wall", glm::vec3(0, 0, 0));
 
-	createNode("", "borderWall3", "wall", "StandardShading",
-		"wall", glm::vec3(51, 0, 0), _upVector, PI + PI / 2);
+	createNode("", "borderWall3", "wall3", "StandardShading",
+		"wall", glm::vec3(0, 0, 0));
 
-	createNode("", "borderWall4", "wall", "StandardShading",
-		"wall", glm::vec3(-51, 0, 0), _upVector, PI / 2);
+	createNode("", "borderWall4", "wall4", "StandardShading",
+		"wall", glm::vec3(0, 0, 0));
 	return SUCCESS;
 }
 

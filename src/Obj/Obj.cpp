@@ -5,8 +5,8 @@ Obj::Obj(std::string name)
 	: _name(name)
 {
 	for (int i = 0; i < 3; i++) {
-		_maxs[i] = 999999999;
-		_mins[i] = -999999999;
+		_maxs[i] = -999999999;
+		_mins[i] = 999999999;
 	}
 }
 

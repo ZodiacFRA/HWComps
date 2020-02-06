@@ -48,6 +48,8 @@ public:
 	int setLightPos(glm::vec3 lightPos);
 
 	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+
+	int isColliding(Node *n1, glm::vec3 nextPos, Node *n2);
 	int translateNode(std::string nodeName, glm::vec3 tM);
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);

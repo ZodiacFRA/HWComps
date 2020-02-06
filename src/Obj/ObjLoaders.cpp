@@ -10,6 +10,9 @@ int Obj::loadObj(std::string filepath)
 	if (!loadFromObjFile(file))
 		return FAILURE;
 
+	printf("mins: %f / %f / %f\n", _mins[0], _mins[1], _mins[2]);
+	printf("maxs: %f / %f / %f\n", _maxs[0], _maxs[1], _maxs[2]);
+
 	indexVBO(_vertices, _uvs, _normals, _indices,
 		_indexed_vertices, _indexed_uvs, _indexed_normals);
 
@@ -60,8 +63,8 @@ int Obj::loadFromObjFile(FILE *file)
 			glm::vec3 vertex;
 			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 			for (int i = 0; i < 3; i++) {
-				_mins[i] = std::max(_mins[i], vertex[i]);
-				_maxs[i] = std::min(_maxs[i], vertex[i]);
+				_mins[i] = std::min(_mins[i], vertex[i]);
+				_maxs[i] = std::max(_maxs[i], vertex[i]);
 			}
 			tmp_vertices.push_back(vertex);
 		} else if (!strcmp(lineID, "vt")) {

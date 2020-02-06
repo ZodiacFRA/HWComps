@@ -46,6 +46,7 @@ int App::run()
 			// Swap buffers
 			glfwSwapBuffers(_win);
 			glfwPollEvents();
+			// exit(0);
 		}
 	} // Check if the ESC key was pressed or the window was closed
 	while (glfwGetKey(_win, GLFW_KEY_ESCAPE) != GLFW_PRESS &&

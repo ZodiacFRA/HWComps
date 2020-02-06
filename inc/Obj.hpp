@@ -14,6 +14,8 @@ public:
 	int draw();
 
 	std::string _name;
+	glm::vec3 _mins;
+	glm::vec3 _maxs;
 private:
 
 	std::vector<glm::vec3> _vertices;
@@ -29,9 +31,6 @@ private:
 	GLuint _uvBuffer;
 	GLuint _normalBuffer;
 	GLuint _elementBuffer;
-
-	glm::vec3 _mins;
-	glm::vec3 _maxs;
 
 	int loadFromObjFile(FILE *file);
 	int drawBuffer(GLuint buffer, int attribute, int size);
