@@ -29,6 +29,10 @@
 #define FAILURE 0
 #define SUCCESS 1
 
+#define NOT_COLLIDING 0
+#define COLLIDING 1
+#define FLOOR_COLLIDING 2
+
 #define PI 3.14159265
 
 #define WIN_WIDTH 1920/2

@@ -14,6 +14,7 @@ set(SRC_FILES
 	${SRC_DIR}/Texture.cpp
 
 	${SRC_DIR}/App/App.cpp
+	${SRC_DIR}/App/AppGame.cpp
 	${SRC_DIR}/App/AppInits.cpp
 	${SRC_DIR}/App/AppControls.cpp
 	${SRC_DIR}/App/AppUtils.cpp

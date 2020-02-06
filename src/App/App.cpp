@@ -32,8 +32,8 @@ int App::run()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			handlePlayerMovement();
-			_playerCanJump = _sceneTree.applyGravity(_gravityValue);
-			// std::cout << _playerCanJump << '\n';
+			 _sceneTree.applyGravity(_gravityValue);
+			// std::cout << _playerIsOnGround << '\n';
 			if (!this->computeMatricesFromInputs())
 				return FAILURE;
 

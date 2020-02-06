@@ -1,31 +1,45 @@
 #include "App.hpp"
 
 
-int App::createMap()
+Node *App::createNode(std::string parentNodeName, std::string nodeName,
+		std::string objName, std::string shaderName,
+		std::string textureName, glm::vec3 position, int checkCollisions,
+		int applyGravity, int randomID)
 {
-	// 1 openGL unit = 1m in Blender
-	// parentNodeName, Node name, Obj name, Shader name,
-	// 		Texture name, Position, (rM, rot_angle, ID)
-	createNode("", "floor", "floor", "StandardShading",
-		"floor", glm::vec3(0, 0, 0));
+	Obj *tmpObj = NULL;
+	auto it = _objsLibrary.find(objName);
+	// Add .obj to the node
+	if (it != _objsLibrary.end()) {
+		tmpObj = it->second;
+	} else {
+		printError("Can't create node (Obj does not exist)");
+		return NULL;
+	}
 
-	createNode("", "borderWall1", "wall1", "StandardShading",
-		"wall", glm::vec3(0, 0, 0));
+	// Add shader to the node
+	Shader *tmpShader = NULL;
+	auto it1 = _shadersLibrary.find(shaderName);
+	if (it1 != _shadersLibrary.end()) {
+		tmpShader = it1->second;
+	} else {
+		printError("Can't create node (Shader does not exist)");
+		return NULL;
+	}
 
-	createNode("", "borderWall2", "wall2", "StandardShading",
-		"wall", glm::vec3(0, 0, 0));
-
-	createNode("", "borderWall3", "wall3", "StandardShading",
-		"wall", glm::vec3(0, 0, 0));
-
-	createNode("", "borderWall4", "wall4", "StandardShading",
-		"wall", glm::vec3(0, 0, 0));
-
-	createNode("", "cubetest", "cube", "StandardShading",
-		"cube", glm::vec3(3, 1, 3));
-	return SUCCESS;
+	// Add texture to the node
+	Texture *tmpTexture = NULL;
+	if (textureName != "") {
+		auto it2 = _textureLibrary.find(textureName);
+		if (it2 != _textureLibrary.end()) {
+			tmpTexture = it2->second;
+		} else {
+			printError("Can't create node (Texture does not exist)");
+			return NULL;
+		}
+	}
+	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
+				tmpTexture, position, checkCollisions, applyGravity, randomID);
 }
-
 
 int App::handleAspectRatio()
 {

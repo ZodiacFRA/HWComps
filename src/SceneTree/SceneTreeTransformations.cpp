@@ -12,21 +12,18 @@ int SceneTree::translateNode(std::string nodeName, glm::vec3 tM)
 int SceneTree::translateNode(Node *node, glm::vec3 tM)
 {
 	if (node->checkCollisions) {
-		glm::mat4 tmpM = glm::translate(node->modelMatrix, tM);
+		glm::vec3 tmpPos = glm::translate(node->modelMatrix, tM)[3];
+
 		for (auto tmpNode : _nodes) {
 			if (tmpNode.second->name != node->name && tmpNode.second->checkCollisions) {
-				int collisionType = isColliding(node, tmpM[3], tmpNode.second);
-				if (node->name == "PlayerNode" && collisionType == 2) {  // Ground colliding
-					return 2;
-				} else if (collisionType == 1) {
-					return 0;
-				}
+				int flag = isColliding(node, tmpPos, tmpNode.second);
+				if (flag)
+					return flag;
 			}
 		}
-
 	}
 	node->modelMatrix = glm::translate(node->modelMatrix, tM);
-	return 1;
+	return NOT_COLLIDING;
 }
 
 int SceneTree::isColliding(Node *n1, glm::vec3 nextPos, Node *n2)
@@ -48,12 +45,13 @@ int SceneTree::isColliding(Node *n1, glm::vec3 nextPos, Node *n2)
 	float maxZ2 = n2->modelMatrix[3].z + n2->obj->_maxs.z;
 	if ((minX1 > maxX2 || maxX1 < minX2) ||
 		(minZ1 > maxZ2 || maxZ1 < minZ2) ||
-		(minY1 > maxY2 || maxY1 < minY2))
-		return 0;  // Not colliding
-	if (minY1 < maxY2) {
-		return 2;  // Floor colliding
+		(minY1 > maxY2 || maxY1 < minY2)) {
+		return NOT_COLLIDING;
 	}
-	return 1;  // Colliding
+	if (minY1 < maxY2) {
+		return FLOOR_COLLIDING;
+	}
+	return COLLIDING;
 }
 
 int SceneTree::setNodePosition(std::string nodeName, glm::vec3 pM)

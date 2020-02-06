@@ -61,8 +61,14 @@ int App::handleMove()
 		movement[0] *= _forcesReductionFactor;
 		movement[2] *= _forcesReductionFactor;
 	}
+	// float flag = translateNode(node.second, glm::vec3(0, gravityValue, 0));
 
 	_sceneTree.translateNode(_playerNode, movement);
+
+	if (_sceneTree.translateNode(_playerNode, glm::vec3(0, _gravityValue, 0)) == 2)
+		_playerIsOnGround = true;
+	else
+		_playerIsOnGround = false;
 
 	// glm::vec3 ppmN = _playerNode->modelMatrix[3];
 
@@ -76,7 +82,7 @@ int App::handleMove()
 
 int App::handleJump()
 {
-	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS && _playerCanJump)
+	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS && _playerIsOnGround)
 		_jumpStart = _currentTime;
 	float deltaT = _currentTime - _jumpStart;
 	float force = -log(deltaT) * _jumpFactor;

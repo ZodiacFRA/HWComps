@@ -38,11 +38,6 @@ public:
 			Shader *shader, Texture *texture, glm::vec3 position,
 			int checkCollisions, int applyGravity, int randomID);
 
-	Node *insert(std::string parentName, std::string name, Obj *obj,
-			Shader *shader, Texture *texture, glm::vec3 position,
-			glm::vec3 rM, float rotationAngle, int checkCollisions,
-			int applyGravity, int randomID);
-
 	int remove(std::string nodeName);
 
 	Node *getNode(std::string nodeName);

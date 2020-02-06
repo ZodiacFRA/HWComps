@@ -35,12 +35,6 @@ private:
 			std::string textureName, glm::vec3 position, int checkCollisions=1,
 			int applyGravity=0, int randomID=-1);
 
-	Node *createNode(std::string parentNodeName, std::string nodeName,
-			std::string objName, std::string shaderName,
-			std::string textureName, glm::vec3 position, glm::vec3 rM,
-			float rotationAngle, int checkCollisions=1, int applyGravity=0,
-			int randomID=1);
-
 	int computeMatricesFromInputs();
 
 	int handleTime();
@@ -91,7 +85,7 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
-	int _playerCanJump;
+	bool _playerIsOnGround;
 	float _yaw;
 	float _pitch;
 	float _roll;
