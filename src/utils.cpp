@@ -31,13 +31,11 @@ float getRandomFloat(float min, float max)
 
 std::vector<std::string> splitString(std::string strToSplit, char delimeter)
 {
-    std::stringstream ss(strToSplit);
-    std::string item;
     std::vector<std::string> splittedStrings;
-    while (std::getline(ss, item, delimeter))
-    {
-       splittedStrings.push_back(item);
-    }
+	std::size_t found = strToSplit.rfind(delimeter);
+	int len = strToSplit.length();
+	splittedStrings.push_back(strToSplit.substr(0, found));
+	splittedStrings.push_back(strToSplit.substr(found + 1, len - found + 1));
     return splittedStrings;
 }
 

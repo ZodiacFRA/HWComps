@@ -10,9 +10,6 @@ int Obj::loadObj(std::string filepath)
 	if (!loadFromObjFile(file))
 		return FAILURE;
 
-	printf("mins: %f / %f / %f\n", _mins[0], _mins[1], _mins[2]);
-	printf("maxs: %f / %f / %f\n", _maxs[0], _maxs[1], _maxs[2]);
-
 	indexVBO(_vertices, _uvs, _normals, _indices,
 		_indexed_vertices, _indexed_uvs, _indexed_normals);
 

@@ -22,8 +22,8 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 	if (it1 != _shadersLibrary.end()) {
 		tmpShader = it1->second;
 	} else {
-		printError("Can't create node (Shader does not exist)");
-		return NULL;
+		printError("Fallback Shader (Shader does not exist)");
+		tmpShader = _shadersLibrary.begin()->second;
 	}
 
 	// Add texture to the node
@@ -33,8 +33,8 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		if (it2 != _textureLibrary.end()) {
 			tmpTexture = it2->second;
 		} else {
-			printError("Can't create node (Texture does not exist)");
-			return NULL;
+			printError("Fallback Texture (Texture does not exist)");
+			tmpTexture = _textureLibrary.begin()->second;
 		}
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
