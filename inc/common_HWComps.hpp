@@ -49,6 +49,7 @@
 #define C_RESET "\x1b[0m"
 
 int printError(std::string msg);
+int printWarning(std::string msg);
 float getRandomFloat(float min, float max);
 std::vector<std::string> splitString(std::string strToSplit, char delimeter);
 std::vector<std::string> getDirFilenamesList(std::string dirPath);
