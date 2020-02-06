@@ -7,6 +7,12 @@ int printError(std::string msg)
 	return FAILURE;
 }
 
+int printWarning(std::string msg)
+{
+	std::cout << C_YELLOW << msg << C_RESET << std::endl;
+	return FAILURE;
+}
+
 
 auto &getGen()
 {
