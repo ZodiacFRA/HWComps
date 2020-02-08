@@ -7,7 +7,6 @@ int App::createMap()
 	// parentNodeName, Node name, Obj name, Shader name,
 	// 		Texture name, Position, (rM, rot_angle, ID)
 	for (auto it: _objsLibrary) {
-		std::cout << it.first << '\n';
 		if (it.first != "Player") {
 			createNode(
 					"", it.first, it.first, "StandardShading",

@@ -33,7 +33,8 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		if (it2 != _textureLibrary.end()) {
 			tmpTexture = it2->second;
 		} else {
-			printError("Fallback Texture (Texture does not exist)");
+			std::cout << textureName;
+			printError(": not found, using Fallback Texture");
 			tmpTexture = _textureLibrary.begin()->second;
 		}
 	}

@@ -18,7 +18,7 @@ int App::setupScene()
 	// 1 openGL unit = 1m in Blender
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
-		"cube", glm::vec3(0, 0, 0), 1, 1, -1);
+		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
 
 	createMap();
 	return SUCCESS;
