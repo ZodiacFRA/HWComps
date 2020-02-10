@@ -43,6 +43,7 @@ private:
 	// Player
 	int handlePlayerMovement();
 	int handleJump();
+	int applyJump();
 	int handleMove();
 
 	// Fonts
@@ -85,6 +86,7 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
+	float _jumpMaxLength;
 	bool _playerIsOnGround;
 	float _yaw;
 	float _pitch;

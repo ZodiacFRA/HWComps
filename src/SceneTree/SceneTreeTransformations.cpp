@@ -17,8 +17,16 @@ int SceneTree::translateNode(Node *node, glm::vec3 tM)
 		for (auto tmpNode : _nodes) {
 			if (tmpNode.second->name != node->name && tmpNode.second->checkCollisions) {
 				int flag = isColliding(node, tmpPos, tmpNode.second);
-				if (flag)
+				if (flag) {
+					if (flag == 2) {
+						float minY1 = node->modelMatrix[3].y + node->obj->_mins.y;
+						float maxY2 = tmpNode.second->modelMatrix[3].y + tmpNode.second->obj->_maxs.y;
+						float deltaD = minY1 - maxY2 - 0.1;
+						if (deltaD > 0 && deltaD > 0.1)
+							node->modelMatrix = glm::translate(node->modelMatrix, glm::vec3(0, -deltaD, 0));
+					}
 					return flag;
+				}
 			}
 		}
 	}

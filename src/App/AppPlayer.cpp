@@ -57,20 +57,29 @@ int App::handleMove()
 		pitch_d = -_pitch / 2;
 	}
 
+	float tmpGravity = _gravityValue;
+
+	if (!_playerIsOnGround) {
+		movement[0] *= 0.7;
+		movement[2] *= 0.7;
+	}
+
 	if (movement[0] != 0 && movement[2] != 0) {
 		movement[0] *= _forcesReductionFactor;
 		movement[2] *= _forcesReductionFactor;
+		tmpGravity *= 0.7;
 	}
-	// float flag = translateNode(node.second, glm::vec3(0, gravityValue, 0));
 
 	_sceneTree.translateNode(_playerNode, movement);
 
-	if (_sceneTree.translateNode(_playerNode, glm::vec3(0, _gravityValue, 0)) == 2)
+	if (_sceneTree.translateNode(_playerNode, glm::vec3(0, _gravityValue, 0)) == 2) {
 		_playerIsOnGround = true;
-	else
+		_jumpStart = 0.0;
+	} else {
 		_playerIsOnGround = false;
-
+	}
 	// glm::vec3 ppmN = _playerNode->modelMatrix[3];
+	// std::cout << ppmN[1] << '\n';
 
 	// _sceneTree.rotateNodeRad("PlayerNode", roll_d, glm::vec3(0, 0, 1));
 	// _sceneTree.rotateNodeRad("PlayerNode", pitch_d, glm::vec3(1, 0, 0));
@@ -82,11 +91,29 @@ int App::handleMove()
 
 int App::handleJump()
 {
-	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS && _playerIsOnGround)
+	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS && _playerIsOnGround) {
 		_jumpStart = _currentTime;
+		applyJump();
+	} else if (!_playerIsOnGround) {
+		applyJump();
+	}
+	return SUCCESS;
+}
+
+int App::applyJump()
+{
 	float deltaT = _currentTime - _jumpStart;
-	float force = -log(deltaT) * _jumpFactor;
+	if (deltaT > _jumpMaxLength)
+		return SUCCESS;
+	if (deltaT < 0)
+		deltaT = 0.0;
+	// float newX = 20 * deltaT + 0.4;
+	// float force = _jumpFactor * newX / (newX * newX + 1);
+	float force = _jumpFactor * -log(deltaT);
+
 	if (force > 0) {
+		if (force > 2.5)
+			force = 2.5;
 		glm::vec3 jumpForce = glm::vec3(0, force, 0);
 		_sceneTree.translateNode("PlayerNode", jumpForce);
 	}

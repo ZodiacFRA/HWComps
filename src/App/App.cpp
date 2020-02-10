@@ -6,7 +6,7 @@ App::App()
 	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
 	_upVector(glm::vec3(0, 1, 0)),
 	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
-	_jumpStart(0.0)
+	_jumpStart(glfwGetTime()), _playerIsOnGround(false)
 {
 	// Is also called in AppPlayer.cpp handleMove() for hot reload
 	loadConstantsFromFile("./data/physics.txt");

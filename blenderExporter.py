@@ -9,7 +9,6 @@ import bpy
 
 OBJ_PATH = "/home/zodiac/Code/HW/S2/HWComps/data/objs/"
 TEX_PATH = "/home/zodiac/Code/HW/S2/HWComps/data/textures/"
-
 V4_HEADER_SIZE = 108
 COLOR_INFO_SIZE = 68
 HEADER_OFF = 14
@@ -17,54 +16,56 @@ DATA_OFF_FIELD = 10
 SIZE_OFF  =  2
 
 
-class SceneParser(object):
-    def __init__(self):
-        if os.path.isdir(OBJ_PATH):
-            shutil.rmtree(OBJ_PATH)
-        if os.path.isdir(TEX_PATH):
-            shutil.rmtree(TEX_PATH)
-        os.makedirs(OBJ_PATH)
-        os.makedirs(TEX_PATH)
-        # Deselect all objects in the scene
-        for obj in bpy.data.objects:
-            obj.select_set(state=False)
+def setupScene(Override):
+    if os.path.isdir(OBJ_PATH):
+        shutil.rmtree(OBJ_PATH)
+    os.makedirs(OBJ_PATH)
+    if os.path.isdir(TEX_PATH):
+        shutil.rmtree(TEX_PATH)
+    os.makedirs(TEX_PATH)
+    # Deselect all objects in the scene
+    for obj in bpy.data.objects:
+        obj.select_set(state=False)
 
-    def exportObjs(self):
-        hidden = [o.name for o in bpy.context.view_layer.objects if not o.hide_viewport and not o.visible_get()]
-        for obj in bpy.data.objects:
-            if obj.type != "MESH" or obj.name in hidden: continue
-            print(f"{'-'*25} Exporting {obj.name}")
+def exportObjs():
+    hidden = [o.name for o in bpy.context.view_layer.objects if not o.hide_viewport and not o.visible_get()]
+    for obj in bpy.data.objects:
+        if obj.type != "MESH" or obj.name in hidden: continue
+        print(f"{'-'*25} Exporting {obj.name}")
 
-            obj.select_set(state=True)
-            tmpPos = [obj.location[0], obj.location[1], obj.location[2]]
-            # bpy.ops.object.transform_apply(rotation=True, scale=True)
-            bpy.ops.object.mode_set(mode='EDIT')
-            # bpy.ops.uv.unwrap()
-            bpy.ops.uv.smart_project()#use_aspect=False, stretch_to_bounds=True)
+        obj.select_set(state=True)
+        tmpPos = [obj.location[0], obj.location[1], obj.location[2]]
+        # bpy.ops.object.transform_apply(rotation=True, scale=True)
+        bpy.ops.object.mode_set(mode='EDIT')
+        # bpy.ops.uv.unwrap()
+        bpy.ops.uv.smart_project()#use_aspect=False, stretch_to_bounds=True)
 
-            if not os.path.isfile(f"{TEX_PATH}{obj.name}.png"):
-                bpy.ops.uv.export_layout(
-                                    filepath = f"{TEX_PATH}{obj.name}.png",
-                                    export_all=False, mode='PNG',
-                                    size=[1024, 1024], opacity=1.0
-                )
-            bpy.ops.object.mode_set(mode='OBJECT')
-            bpy.ops.export_scene.obj(
-                                filepath=f"{OBJ_PATH}{obj.name}.obj",
-                                check_existing=False, axis_forward='-Z', axis_up='Y',
-                                filter_glob="*.obj;*.mtl", use_selection=True, use_animation=False,
-                                use_mesh_modifiers=True, use_edges=True, use_smooth_groups=False,
-                                use_smooth_groups_bitflags=False,
-                                use_normals=True, use_uvs=True,
-                                use_materials=False, use_triangles=True, use_nurbs=False,
-                                use_vertex_groups=False, use_blen_objects=True, group_by_object=False,
-                                group_by_material=False, keep_vertex_order=True, global_scale=1,
+        tex_name = f"{TEX_PATH}{obj.name}.bmp"
+        if not os.path.isfile(f"{TEX_PATH}{obj.name}.bmp"):
+            bpy.ops.uv.export_layout(
+                                filepath = f"{TEX_PATH}{obj.name}.png",
+                                export_all=False, mode='PNG',
+                                size=[1024, 1024], opacity=1.0
             )
-            obj.location = tmpPos
-            obj.select_set(state=False)
+        else:
+            print(f"Texture {tex_name} found, skipping texture export")
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.export_scene.obj(
+                            filepath=f"{OBJ_PATH}{obj.name}.obj",
+                            check_existing=False, axis_forward='-Z', axis_up='Y',
+                            filter_glob="*.obj;*.mtl", use_selection=True, use_animation=False,
+                            use_mesh_modifiers=True, use_edges=True, use_smooth_groups=False,
+                            use_smooth_groups_bitflags=False,
+                            use_normals=True, use_uvs=True,
+                            use_materials=False, use_triangles=True, use_nurbs=False,
+                            use_vertex_groups=False, use_blen_objects=True, group_by_object=False,
+                            group_by_material=False, keep_vertex_order=True, global_scale=1,
+        )
+        obj.location = tmpPos
+        obj.select_set(state=False)
 
 
-def strip_color_info(old_bmp_name, new_bmp_name=None):
+def rewriteHeader(old_bmp_name, new_bmp_name=None):
     header = bytes.fromhex("""424d 3600 3000 0000 0000 3600 0000 2800
 0000 0004 0000 0004 0000 0100 1800 0000
 0000 0000 3000 130b 0000 130b 0000 0000
@@ -88,8 +89,8 @@ def strip_color_info(old_bmp_name, new_bmp_name=None):
 
 if __name__ == '__main__':
     print(f"{'-'*50} Starting export")
-    scene_parser = SceneParser()
-    scene_parser.exportObjs()
+    setupScene(input("Override already existing textures? [y]/[n]\n") == 'y')
+    exportObjs()
     print(f"{'-'*50} Objs export done")
 
     print("Converting png to bmps...")
@@ -103,6 +104,6 @@ if __name__ == '__main__':
     print(f"{'-'*50} Removing color info!")
     bmps = [os.path.join(TEX_PATH, f) for f in os.listdir(TEX_PATH) if f.endswith(".bmp")]
     for bmp in bmps:
-        strip_color_info(bmp)
+        rewriteHeader(bmp)
 
     print(f"{'-'*50} Finished!")
