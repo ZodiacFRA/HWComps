@@ -112,6 +112,9 @@ int Obj::loadFromObjFile(FILE *file)
 		_uvs     .push_back(uv);
 		_normals .push_back(normal);
 	}
+	// 
+	// printf("mins: %f %f %f\n", _mins.x, _mins.y, _mins.z);
+	// printf("maxs: %f %f %f\n", _maxs.x, _maxs.y, _maxs.z);
 
 	fclose(file);
 	return SUCCESS;

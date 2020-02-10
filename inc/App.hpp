@@ -46,6 +46,9 @@ private:
 	int applyJump();
 	int handleMove();
 
+	// Map + Navig
+	int computeMapBoundaries();
+
 	// Fonts
 	void printText2D(const char * text, int x, int y, int size);
 	void cleanupText2D();
@@ -103,6 +106,10 @@ private:
 
 	float _jumpFactor;
 	float _gravityValue;
+
+	// Map
+
+
 
 	// Fonts
 	unsigned int _text2DTextureID;

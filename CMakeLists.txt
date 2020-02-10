@@ -21,6 +21,7 @@ set(SRC_FILES
 	${SRC_DIR}/App/AppLoaders.cpp
 	${SRC_DIR}/App/AppPlayer.cpp
 	${SRC_DIR}/App/AppText2D.cpp
+	${SRC_DIR}/App/AppNavig.cpp
 
 	${SRC_DIR}/Obj/Obj.cpp
 	${SRC_DIR}/Obj/ObjLoaders.cpp

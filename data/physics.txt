@@ -19,3 +19,4 @@ _playerLateralSpeed/0.3
 _gravityValue/-0.5
 _jumpFactor/0.2
 _jumpMaxLength/0.8
+²

@@ -59,8 +59,9 @@ public:
 	// DOES NOT WORK
 	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 
+	std::map<std::string, Node *> _nodes;
+
 private:
 	Node _root;
 	glm::vec3 _lightPos;
-	std::map<std::string, Node *> _nodes;
 };

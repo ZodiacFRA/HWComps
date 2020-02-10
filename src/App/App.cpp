@@ -21,6 +21,7 @@ int App::setupScene()
 		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
 
 	createMap();
+	computeMapBoundaries();
 	return SUCCESS;
 }
 
