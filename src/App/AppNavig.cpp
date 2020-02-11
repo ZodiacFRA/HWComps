@@ -74,7 +74,7 @@ int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins)
     for (int z = 0; z < _scanResolution; z++) {
         for (int x = 0; x < _scanResolution; x++) {
             if (_mapAnalysis[z][x])
-                std::cout << ' ';
+                std::cout << '-';
             else
                 std::cout << 'X';
         }
