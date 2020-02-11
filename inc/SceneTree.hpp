@@ -49,7 +49,7 @@ public:
 	int applyGravity(float gravityValue);
 
 	int translateNode(std::string nodeName, glm::vec3 tM);
-	int translateNode(Node *node, glm::vec3 tM);
+	int translateNode(Node *node, glm::vec3 tM, bool onlyCheckCollision=false);
 
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);

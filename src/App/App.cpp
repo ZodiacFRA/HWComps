@@ -12,20 +12,6 @@ App::App()
 	loadConstantsFromFile("./data/physics.txt");
 }
 
-
-int App::setupScene()
-{
-	// 1 openGL unit = 1m in Blender
-	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
-	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
-		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
-
-	createMap();
-	computeMapBoundaries();
-	return SUCCESS;
-}
-
-
 int App::run()
 {
 	do {
@@ -34,8 +20,8 @@ int App::run()
 
 			handlePlayerMovement();
 			 _sceneTree.applyGravity(_gravityValue);
-			// std::cout << _playerIsOnGround << '\n';
-			if (!this->computeMatricesFromInputs())
+
+			if (!computeMatricesFromInputs())
 				return FAILURE;
 
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);

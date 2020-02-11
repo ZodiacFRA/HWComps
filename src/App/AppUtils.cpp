@@ -128,6 +128,9 @@ int App::loadConstantsFromFile(std::string fileName)
 			_jumpFactor = std::stof(splitted[1], NULL);
 		if (splitted[0] == "_jumpMaxLength")
 			_jumpMaxLength = std::stof(splitted[1], NULL);
+
+		if (splitted[0] == "_scanResolution")
+			_scanResolution = std::stof(splitted[1], NULL);
 	}
 	in.close();
 	_camHeight = (_minCamHeight + _maxCamHeight) / 2;

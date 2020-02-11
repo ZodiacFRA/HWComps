@@ -47,7 +47,8 @@ private:
 	int handleMove();
 
 	// Map + Navig
-	int computeMapBoundaries();
+	int analyzeMap();
+	int scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins);
 
 	// Fonts
 	void printText2D(const char * text, int x, int y, int size);
@@ -108,7 +109,9 @@ private:
 	float _gravityValue;
 
 	// Map
-
+	// Z first
+	int _scanResolution;
+	std::vector<std::vector<bool>> _mapAnalysis;
 
 
 	// Fonts

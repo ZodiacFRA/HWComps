@@ -9,20 +9,20 @@ int SceneTree::translateNode(std::string nodeName, glm::vec3 tM)
 	return translateNode(node, tM);
 }
 
-int SceneTree::translateNode(Node *node, glm::vec3 tM)
+int SceneTree::translateNode(Node *node, glm::vec3 tM, bool onlyCheckCollision)
 {
 	if (node->checkCollisions) {
 		glm::vec3 tmpPos = glm::translate(node->modelMatrix, tM)[3];
-
 		for (auto tmpNode : _nodes) {
 			if (tmpNode.second->name != node->name && tmpNode.second->checkCollisions) {
 				int flag = isColliding(node, tmpPos, tmpNode.second);
+				// printf("%s - %s\n", node->name.c_str(), tmpNode.first.c_str());
 				if (flag) {
-					if (flag == 2) {
+					if (flag == FLOOR_COLLIDING) {
 						float minY1 = node->modelMatrix[3].y + node->obj->_mins.y;
 						float maxY2 = tmpNode.second->modelMatrix[3].y + tmpNode.second->obj->_maxs.y;
 						float deltaD = minY1 - maxY2 - 0.1;
-						if (deltaD > 0 && deltaD > 0.1)
+						if (deltaD > 0 && deltaD > 0.1 && !onlyCheckCollision)
 							node->modelMatrix = glm::translate(node->modelMatrix, glm::vec3(0, -deltaD, 0));
 					}
 					return flag;
@@ -30,7 +30,8 @@ int SceneTree::translateNode(Node *node, glm::vec3 tM)
 			}
 		}
 	}
-	node->modelMatrix = glm::translate(node->modelMatrix, tM);
+	if (!onlyCheckCollision)
+		node->modelMatrix = glm::translate(node->modelMatrix, tM);
 	return NOT_COLLIDING;
 }
 

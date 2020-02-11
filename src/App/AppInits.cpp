@@ -19,6 +19,18 @@ int App::init()
 	return flag;
 }
 
+int App::setupScene()
+{
+
+	createMap();
+	analyzeMap();
+	// 1 openGL unit = 1m in Blender
+	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
+	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
+		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
+	return SUCCESS;
+}
+
 
 int App::initTexture2D()
 {
