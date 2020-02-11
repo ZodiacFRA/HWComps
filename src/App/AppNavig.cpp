@@ -47,7 +47,7 @@ int App::analyzeMap()
                 collisionNode->modelMatrix[3].z);
     collisionNode->checkCollisions = true;
 
-
+    printf("%sStarting map collision analysis%s\n", C_GREEN, C_RESET);
     scanMap(collisionNode, nodeRes, mapMins);
     delete collisionNode->obj;
     delete collisionNode;
