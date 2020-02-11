@@ -70,11 +70,13 @@ int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins)
             if (flag == NOT_COLLIDING)  // No collision
                 _mapAnalysis[z][x] = true;
         }
-        std::cout << "1 rangée!" << '\n';
     }
     for (int z = 0; z < _scanResolution; z++) {
         for (int x = 0; x < _scanResolution; x++) {
-            std::cout << _mapAnalysis[z][x];
+            if (_mapAnalysis[z][x])
+                std::cout << ' ';
+            else
+                std::cout << 'X';
         }
         std::cout << '\n';
     }
