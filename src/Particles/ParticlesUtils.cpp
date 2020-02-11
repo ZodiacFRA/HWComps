@@ -38,15 +38,6 @@ int Particles::init(Shader *shader, Texture *texture)
     return SUCCESS;
 }
 
-
-Particles::~Particles()
-{
-	// Clear VBOs
-	glDeleteBuffers(1, &_billboard_vertex_buffer);
-	glDeleteBuffers(1, &_particles_position_buffer);
-	glDeleteBuffers(1, &_particles_color_buffer);
-}
-
 int Particles::update()
 {
     // Update the buffers that OpenGL uses for rendering.
@@ -57,6 +48,23 @@ int Particles::update()
     glBindBuffer(GL_ARRAY_BUFFER, _particles_color_buffer);
     glBufferData(GL_ARRAY_BUFFER, _maxParticles * 4 * sizeof(GLubyte), NULL, GL_STREAM_DRAW); // Buffer orphaning, a common way to improve streaming perf. See above link for details.
     glBufferSubData(GL_ARRAY_BUFFER, 0, _particlesCount * sizeof(GLubyte) * 4, _g_particule_color_data);
+    return SUCCESS;
+}
+
+int Particles::setupDraw()
+{
+    glUseProgram(_shader->getProgramID());
+    _texture->setupDraw(_shader->getProgramID());
+
+    // 1rst attribute buffer : vertices
+    drawBuffer(_billboard_vertex_buffer, 3, 3, GL_FLOAT, GL_FALSE);
+    // 2nd attribute buffer : positions of particles' centers
+    drawBuffer(_particles_position_buffer, 4, 4, GL_FLOAT, GL_FALSE);
+    // 3rd attribute buffer : particles' colors
+    drawBuffer(_particles_color_buffer, 5, 4, GL_UNSIGNED_BYTE, GL_TRUE);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     return SUCCESS;
 }
 
@@ -85,25 +93,6 @@ int Particles::draw()
     return SUCCESS;
 }
 
-
-int Particles::setupDraw()
-{
-    glUseProgram(_shader->getProgramID());
-    _texture->setupDraw(_shader->getProgramID());
-
-    // 1rst attribute buffer : vertices
-    drawBuffer(_billboard_vertex_buffer, 3, 3, GL_FLOAT, GL_FALSE);
-    // 2nd attribute buffer : positions of particles' centers
-    drawBuffer(_particles_position_buffer, 4, 4, GL_FLOAT, GL_FALSE);
-    // 3rd attribute buffer : particles' colors
-    drawBuffer(_particles_color_buffer, 5, 4, GL_UNSIGNED_BYTE, GL_TRUE);
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    return SUCCESS;
-}
-
-
 int Particles::drawBuffer(GLuint buffer, int attribute, int size, int glType,
                             int normalized)
 {
@@ -119,7 +108,6 @@ int Particles::drawBuffer(GLuint buffer, int attribute, int size, int glType,
 	);
 	return SUCCESS;
 }
-
 
 int Particles::findUnusedParticle() {
 
@@ -139,4 +127,12 @@ int Particles::SortParticles()
 {
 	std::sort(&_particlesContainer[0], &_particlesContainer[_maxParticles]);
     return SUCCESS;
+}
+
+Particles::~Particles()
+{
+	// Clear VBOs
+	glDeleteBuffers(1, &_billboard_vertex_buffer);
+	glDeleteBuffers(1, &_particles_position_buffer);
+	glDeleteBuffers(1, &_particles_color_buffer);
 }

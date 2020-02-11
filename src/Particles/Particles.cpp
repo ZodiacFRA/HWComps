@@ -43,6 +43,7 @@ int Particles::simulateParticles(float deltaTime, glm::vec3 cameraPosition)
 {
 	for (int i = 0; i < _maxParticles; i++){
 	    Particle& p = _particlesContainer[i]; // shortcut
+		std::cout << p.cameradistance << '\n';
 		if (p.life > 0.0f){
 	        p.life -= deltaTime;  // Decrease life
             // Simulate simple physics : gravity only, no collisions
