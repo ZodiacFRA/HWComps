@@ -29,6 +29,10 @@
 #define FAILURE 0
 #define SUCCESS 1
 
+#define FOURCC_DXT1 0x31545844 // Equivalent to "DXT1" in ASCII
+#define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
+#define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
+
 #define NOT_COLLIDING 0
 #define COLLIDING 1
 #define FLOOR_COLLIDING 2

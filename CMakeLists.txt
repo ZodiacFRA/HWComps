@@ -31,6 +31,9 @@ set(SRC_FILES
 
 	${SRC_DIR}/SceneTree/SceneTree.cpp
 	${SRC_DIR}/SceneTree/SceneTreeTransformations.cpp
+
+	${SRC_DIR}/Particles/Particles.cpp
+	${SRC_DIR}/Particles/ParticlesUtils.cpp
 )
 set(GL_SRC_FILES
 	${GL_SRC_DIR}/vboindexer.cpp

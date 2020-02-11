@@ -13,9 +13,12 @@ int App::init()
 	flag &= initShaders();
 	flag &= loadObjsLibrary();
 	flag &= loadTextureLibrary();
+	flag &= _sceneTree._particles.init(
+									_shadersLibrary["Particles"],
+									_textureLibrary["particle"]
+				);
 
 	flag &= setupScene();
-
 	return flag;
 }
 

@@ -10,7 +10,11 @@ int App::loadTextureLibrary()
 		std::string tmp = path + file;
 		std::vector<std::string> splitted = splitString(file, '.');
 		tmpTex = new Texture();
-		tmpTex->loadTexture(tmp.c_str(), false);
+		if (splitted[1] == "DDS") {
+			tmpTex->loadDDS(tmp.c_str());
+		} else {
+			tmpTex->loadTexture(tmp.c_str(), false);
+		}
 		_textureLibrary.emplace(splitted[0], tmpTex);
 	}
 	return SUCCESS;
@@ -55,10 +59,10 @@ int App::initShaders()
 	_shadersLibrary.emplace("StandardShadingNoSpec", tmpShader);
 
 	tmpShader = new Shader();
-	tmpShader->loadShaders("./data/shaders/StandardShadingNoSpec/vs.glsl",
-				"./data/shaders/ShaderToy/fs.glsl"
+	tmpShader->loadShaders("./data/shaders/Particles/Particle.vertexshader",
+				"./data/shaders/Particles/Particle.fragmentshader"
 	);
-	_shadersLibrary.emplace("ShaderToy", tmpShader);
+	_shadersLibrary.emplace("Particles", tmpShader);
 
 	return SUCCESS;
 }

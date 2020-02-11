@@ -4,6 +4,7 @@
 #include "Obj.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
+#include "Particles.hpp"
 
 
 struct Node;
@@ -59,8 +60,11 @@ public:
 	// DOES NOT WORK
 	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 
+	int handleParticles(float deltaTime, glm::vec3 cameraPosition);
+
 	std::map<std::string, Node *> _nodes;
 
+	Particles _particles;
 private:
 	Node _root;
 	glm::vec3 _lightPos;

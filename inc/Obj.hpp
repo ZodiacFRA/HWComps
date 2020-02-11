@@ -17,7 +17,7 @@ public:
 	glm::vec3 _mins;
 	glm::vec3 _maxs;
 private:
-
+	bool _initDone = false;
 	std::vector<glm::vec3> _vertices;
 	std::vector<glm::vec2> _uvs;
 	std::vector<glm::vec3> _normals;

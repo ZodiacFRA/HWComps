@@ -38,6 +38,7 @@ int Obj::loadObj(std::string filepath)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 		_indices.size() * sizeof(unsigned short),
 		&_indices[0] , GL_STATIC_DRAW);
+	_initDone = true;
 	return SUCCESS;
 }
 
@@ -112,7 +113,7 @@ int Obj::loadFromObjFile(FILE *file)
 		_uvs     .push_back(uv);
 		_normals .push_back(normal);
 	}
-	// 
+	//
 	// printf("mins: %f %f %f\n", _mins.x, _mins.y, _mins.z);
 	// printf("maxs: %f %f %f\n", _maxs.x, _maxs.y, _maxs.z);
 

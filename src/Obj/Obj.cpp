@@ -13,10 +13,12 @@ Obj::Obj(std::string name)
 Obj::~Obj()
 {
 	// Clear VBOs
-	glDeleteBuffers(1, &_verticesBuffer);
-	glDeleteBuffers(1, &_uvBuffer);
-	glDeleteBuffers(1, &_normalBuffer);
-	glDeleteBuffers(1, &_elementBuffer);
+	if (_initDone) {
+		glDeleteBuffers(1, &_verticesBuffer);
+		glDeleteBuffers(1, &_uvBuffer);
+		glDeleteBuffers(1, &_normalBuffer);
+		glDeleteBuffers(1, &_elementBuffer);
+	}
 	// Shaders are destroyed by App
 }
 

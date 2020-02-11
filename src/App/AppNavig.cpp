@@ -29,7 +29,7 @@ int App::analyzeMap()
     printf("\tX: %f <-> %f\t-> %f\n", mapMins.x, mapMaxs.x, mapXSize);
     printf("\tY: %f <-> %f\t-> %f\n", mapMins.y, mapMaxs.y, mapYSize);
     printf("\tZ: %f <-> %f\t-> %f\n", mapMins.z, mapMaxs.z, mapZSize);
-    printf("\tFloor level detected at y= %f for node %s\n", floorHeight, minYNode->name.c_str());
+    printf("Floor level detected at y= %f for node %s\n", floorHeight, minYNode->name.c_str());
     float nodeRes = std::max(mapXSize / _scanResolution, mapZSize / _scanResolution);
     printf("A* scan resolution size = %f units\n", nodeRes);
     // Create scanning node and object for collision detection
@@ -71,14 +71,14 @@ int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins)
                 _mapAnalysis[z][x] = true;
         }
     }
-    for (int z = 0; z < _scanResolution; z++) {
-        for (int x = 0; x < _scanResolution; x++) {
-            if (_mapAnalysis[z][x])
-                std::cout << '-';
-            else
-                std::cout << 'X';
-        }
-        std::cout << '\n';
-    }
+    // for (int z = 0; z < _scanResolution; z++) {
+    //     for (int x = 0; x < _scanResolution; x++) {
+    //         if (_mapAnalysis[z][x])
+    //             std::cout << '-';
+    //         else
+    //             std::cout << 'X';
+    //     }
+    //     std::cout << '\n';
+    // }
     return SUCCESS;
 }

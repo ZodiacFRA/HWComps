@@ -2,7 +2,7 @@
 
 
 SceneTree::SceneTree()
-	: _lightPos(-10, 5, 0)
+	: _lightPos(-10, 5, 0), _particles()
 {
 	_root.name = "";
 }
@@ -13,6 +13,15 @@ SceneTree::~SceneTree()
 		if (it.second)
 			delete it.second;
 	}
+}
+
+int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition)
+{
+	_particles.createNewParticles(deltaTime);
+	_particles.simulateParticles(deltaTime, cameraPosition);
+	_particles.SortParticles();
+	_particles.update();
+	return SUCCESS;
 }
 
 int SceneTree::applyGravity(float gravityValue)
@@ -63,6 +72,8 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 				it.second->shader->getProgramID());
 		it.second->obj->draw();
 	}
+	_particles.setupDraw();
+	_particles.draw();
 	return SUCCESS;
 }
 

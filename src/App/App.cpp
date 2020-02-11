@@ -24,7 +24,9 @@ int App::run()
 			if (!computeMatricesFromInputs())
 				return FAILURE;
 
+			_sceneTree.handleParticles(_deltaTime, glm::inverse(_viewMatrix)[3]);
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);
+
 
 			// Draw info text
 			char text[256];
