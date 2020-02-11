@@ -97,8 +97,9 @@ int Particles::setupDraw()
     drawBuffer(_particles_position_buffer, 4, 4, GL_FLOAT, GL_FALSE);
     // 3rd attribute buffer : particles' colors
     drawBuffer(_particles_color_buffer, 5, 4, GL_UNSIGNED_BYTE, GL_TRUE);
-    // glEnable(GL_BLEND);
-    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     return SUCCESS;
 }
 

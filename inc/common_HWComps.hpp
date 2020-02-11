@@ -43,8 +43,6 @@
 #define WIN_HEIGHT 1052
 #define WIN_NAME "HWGL"
 
-#define BG_COLOR 0, 0, 0, 0
-
 #define MOUSE_H_MOV_SPEED 0.0005f
 #define MOUSE_V_MOV_SPEED 0.0001f
 

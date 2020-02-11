@@ -79,7 +79,7 @@ int App::initGLFW()
 	glfwSetCursorPos(_win, _winWidth/2, _winHeight/2);
 
 	// Set background color
-	glClearColor(BG_COLOR);
+	glClearColor(0.2, 0.2, 0.3, 0.0);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);

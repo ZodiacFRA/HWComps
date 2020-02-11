@@ -10,13 +10,13 @@ int Particles::createNewParticles(float deltaTime)
 	if (newparticles > (int)(0.016f * 10000.0))
 		newparticles = (int)(0.016f * 10000.0);
 
-	for(int i=0; i < newparticles; i++){
+	for (int i=0; i < newparticles; i++) {
 		findUnusedParticle();
 		_particlesContainer[_lastUsedParticle].life = 5.0f; // This particle will live 5 seconds.
-		_particlesContainer[_lastUsedParticle].pos = glm::vec3(0,0,0.2f);
+		_particlesContainer[_lastUsedParticle].pos = glm::vec3(0, 2.0, 0.2);
 
 		float spread = 1.5f;
-		glm::vec3 maindir = glm::vec3(0.0f, 2.0f, 0.0f);
+		glm::vec3 maindir = glm::vec3(0.0f, 2.0, 1.0);
 		// Very bad way to generate a random direction;
 		// See for instance http://stackoverflow.com/questions/5408276/python-uniform-spherical-distribution instead,
 		// combined with some user-controlled parameters (main direction, spread, etc)
@@ -41,38 +41,33 @@ int Particles::createNewParticles(float deltaTime)
 
 int Particles::simulateParticles(float deltaTime, glm::vec3 cameraPosition)
 {
-    _particlesCount = 0;
-	for(int i=0; i<_maxParticles; i++){
+	for (int i = 0; i < _maxParticles; i++){
 	    Particle& p = _particlesContainer[i]; // shortcut
-
-		if(p.life > 0.0f){
+		if (p.life > 0.0f){
 	        p.life -= deltaTime;  // Decrease life
+            // Simulate simple physics : gravity only, no collisions
+            p.speed += glm::vec3(0.0f,-0.5f, 0.0f) * (float)deltaTime * 0.5f;
+            p.pos += p.speed * (float)deltaTime;
+			// std::cout << glm::to_string(p.pos) << '\n';
+            p.cameradistance = glm::length2( p.pos - cameraPosition);
+            //_particlesContainer[i].pos += glm::vec3(0.0f,10.0f, 0.0f) *
+											//(float)deltaTime;
+            // Fill the GPU buffer
+            _g_particule_position_size_data[4 * i + 0] = p.pos.x;
+            _g_particule_position_size_data[4 * i + 1] = p.pos.y;
+            _g_particule_position_size_data[4 * i + 2] = p.pos.z;
 
-	        if (p.life > 0.0f) {
-	            // Simulate simple physics : gravity only, no collisions
-	            p.speed += glm::vec3(0.0f,-9.81f, 0.0f) * (float)deltaTime * 0.5f;
-	            p.pos += p.speed * (float)deltaTime;
-	            p.cameradistance = glm::length2( p.pos - cameraPosition);
-	            //_particlesContainer[i].pos += glm::vec3(0.0f,10.0f, 0.0f) *
-												//(float)deltaTime;
-	            // Fill the GPU buffer
-	            _g_particule_position_size_data[4*_particlesCount+0] = p.pos.x;
-	            _g_particule_position_size_data[4*_particlesCount+1] = p.pos.y;
-	            _g_particule_position_size_data[4*_particlesCount+2] = p.pos.z;
+            _g_particule_position_size_data[4 * i + 3] = p.size;
 
-	            _g_particule_position_size_data[4*_particlesCount+3] = p.size;
-
-	            _g_particule_color_data[4*_particlesCount+0] = p.r;
-	            _g_particule_color_data[4*_particlesCount+1] = p.g;
-	            _g_particule_color_data[4*_particlesCount+2] = p.b;
-	            _g_particule_color_data[4*_particlesCount+3] = p.a;
-	        } else {
-				p.cameradistance = -1.0f;
-	            // Particles that just died will be put at the end of the buffer
-				// in SortParticles();
-	        }
-	        _particlesCount++;
-	    }
+            _g_particule_color_data[4 * i + 0] = p.r;
+            _g_particule_color_data[4 * i + 1] = p.g;
+            _g_particule_color_data[4 * i + 2] = p.b;
+            _g_particule_color_data[4 * i + 3] = p.a;
+        } else {
+			p.cameradistance = -1.0f;
+            // Particles that just died will be put at the end of the buffer
+			// in SortParticles();
+        }
 	}
     return SUCCESS;
 }
