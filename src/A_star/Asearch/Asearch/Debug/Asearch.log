@@ -1,0 +1,58 @@
+﻿  A_Star.cpp
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(50,30): warning C4305: 'argument' : troncation de 'double' à 'bool'
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(147,26): warning C4305: 'initialisation' : troncation de '__int64' à 'float'
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(167,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(176,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(200,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(228,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(229,21): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(236,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(237,21): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(290,21): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(461,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(462,21): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(471,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(472,21): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244: 'initialisation' : conversion de '_Ty' en '_Ty2', perte possible de données
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty=__int64
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         and
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty2=float
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<pos,float>::pair<pos,__int64,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         with
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         [
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :             _Other1=pos,
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :             _Other2=__int64
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         ]
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<pos,float>::pair<pos,__int64,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         with
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         [
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :             _Other1=pos,
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :             _Other2=__int64
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(141): message :         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244: 'initialisation' : conversion de '_Ty' en '_Ty2', perte possible de données
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         with
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty=int
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         and
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         [
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:             _Ty2=float
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.23.28105\include\utility(127,1): warning C4244:         ]
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<pos,float>::pair<pos,int,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         with
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         [
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :             _Other1=pos,
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :             _Other2=int
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         ]
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<pos,float>::pair<pos,int,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         with
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         [
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :             _Other1=pos,
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :             _Other2=int
+C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Asearch\A_Star.cpp(230): message :         ]
+  Asearch.vcxproj -> C:\Users\darcw\Documents\GitHub\HWComps\src\A_star\Asearch\Debug\Asearch.exe
