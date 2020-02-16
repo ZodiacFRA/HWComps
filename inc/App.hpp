@@ -6,6 +6,8 @@
 #include "SceneTree.hpp"
 #include "Texture.hpp"
 #include "aStar.hpp"
+#include "NPC.hpp"
+
 
 class App {
 public:
@@ -50,7 +52,10 @@ private:
 	// Map + Navig
 	int analyzeMap();
 	int transformPosforAStar(glm::vec3 pos);
+	glm::vec3 transformPosforGlm(int x, int y);
 	int scanMap(Node *collisionNode, float scanRes, glm::vec3 _mapMins);
+
+	int moveNPCs();
 
 	// Fonts
 	void printText2D(const char * text, int x, int y, int size);
@@ -62,8 +67,8 @@ private:
 	double _lastTime;
 	double _currentTime;
 	float _deltaTime;
-	int _nbFrames;
-	glm::vec3 _upVector;
+	int _nbFrames = 0;
+	glm::vec3 _upVector = glm::vec3(0, 1, 0);
 
 	// GL
 	GLFWwindow *_win;
@@ -93,7 +98,7 @@ private:
 	Node *_playerNode;
 	float _jumpStart;
 	float _jumpMaxLength;
-	bool _playerIsOnGround;
+	bool _playerIsOnGround = false;
 	float _yaw;
 	float _pitch;
 	float _roll;
@@ -119,6 +124,9 @@ private:
 	int _scanResolution;
 	std::vector<std::vector<bool>> _mapAnalysis;
 
+	float _lastAStarTime;
+	int _lastNpcDone;
+	std::vector<NPC> _NPCs;
 
 	// Fonts
 	unsigned int _text2DTextureID;

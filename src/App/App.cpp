@@ -3,10 +3,10 @@
 
 App::App()
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
-	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
-	_upVector(glm::vec3(0, 1, 0)),
+	_lastTime(glfwGetTime()),
 	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
-	_jumpStart(glfwGetTime()), _playerIsOnGround(false)
+	_jumpStart(glfwGetTime()),
+	_lastAStarTime(glfwGetTime())
 {
 	// Is also called in AppPlayer.cpp handleMove() for hot reload
 	loadConstantsFromFile("./data/physics.txt");
@@ -19,6 +19,7 @@ int App::run()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			handlePlayerMovement();
+			moveNPCs();
 			 _sceneTree.applyGravity(_gravityValue);
 
 			if (!computeMatricesFromInputs())

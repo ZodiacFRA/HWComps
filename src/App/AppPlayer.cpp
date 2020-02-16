@@ -87,15 +87,6 @@ int App::handleMove()
 	_roll += roll_d;
 	_pitch += pitch_d;
 
-	if (glfwGetKey(_win, GLFW_KEY_U) == GLFW_PRESS) {
-		int from = transformPosforAStar(glm::vec3(0, 1, 0));
-		int to = transformPosforAStar(_playerNode->modelMatrix[3]);
-		std::vector<std::pair<int, int>> res = _pathfinder.compute(
-				transformPosforAStar(glm::vec3(0, 1, 0)),
-				transformPosforAStar(_playerNode->modelMatrix[3])
-		);
-	}
-
 	return SUCCESS;
 }
 

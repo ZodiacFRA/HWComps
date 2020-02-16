@@ -13,6 +13,14 @@ int App::transformPosforAStar(glm::vec3 pos)
 	return idx;
 }
 
+glm::vec3 App::transformPosforGlm(int x, int y)
+{
+	return glm::vec3(
+				x * _nodeRes - abs(_mapMins.x),
+				0,
+				y * _nodeRes - abs(_mapMins.z));
+}
+
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position, int checkCollisions,
