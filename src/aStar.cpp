@@ -19,6 +19,21 @@ int aStar::scanNeighbors(int nodeIdx)
     return 1;
 }
 
+int aStar::getNeighbor(int nodeIdx)
+{
+    for (auto delta : _deltas) {
+        int tmpX = delta.first + nodeIdx % _mapWidth;
+        int tmpY = delta.second + nodeIdx / _mapWidth;
+        int neighborIdx = tmpY * _mapWidth + tmpX;
+        if (tmpX >= 0 && tmpX < _mapWidth &&
+            tmpY >= 0 && tmpY < _mapWidth &&
+            _map[neighborIdx]->_isFree) {
+            return neighborIdx;
+        }
+    }
+    return -1;
+}
+
 void aStar::displayMap()
 {
     for (size_t i = 0; i < _map.size(); i++) {
@@ -106,7 +121,6 @@ std::vector<std::pair<int, int>> aStar::rebuildPath(
 		tmp.push_back(currentIdx);
 	}
 	std::reverse(tmp.begin(), tmp.end());
-    displayMap(tmp);
 
     std::vector<std::pair<int, int>> res;
     for (auto tmpIdx : tmp)

@@ -90,7 +90,6 @@ int App::handleMove()
 	if (glfwGetKey(_win, GLFW_KEY_U) == GLFW_PRESS) {
 		int from = transformPosforAStar(glm::vec3(0, 1, 0));
 		int to = transformPosforAStar(_playerNode->modelMatrix[3]);
-		printf("ASTAR from %d to %d\n", from, to);
 		std::vector<std::pair<int, int>> res = _pathfinder.compute(
 				transformPosforAStar(glm::vec3(0, 1, 0)),
 				transformPosforAStar(_playerNode->modelMatrix[3])

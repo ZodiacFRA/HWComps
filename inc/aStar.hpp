@@ -16,6 +16,7 @@ public:
 struct aStar {
     ~aStar() { for (size_t i = 0; i < _map.size(); i++) delete _map[i]; };
     void displayMap();
+    int getNeighbor(int nodeIdx);
     void displayMap(std::vector<int> res);
     int initMap(std::vector<std::vector<bool>> map);
     int toFlatArray(int x, int y) { return y * _mapWidth + x; };

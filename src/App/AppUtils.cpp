@@ -2,9 +2,15 @@
 
 int App::transformPosforAStar(glm::vec3 pos)
 {
-	return _pathfinder.toFlatArray(
+	int idx = _pathfinder.toFlatArray(
 						(abs(_mapMins.x) + pos.x) / _nodeRes,
 						(abs(_mapMins.z) + pos.z) / _nodeRes);
+	if (!_pathfinder._map[idx]->_isFree) {
+		int neighbor = _pathfinder.getNeighbor(idx);
+		if (neighbor != -1)
+			return neighbor;
+	}
+	return idx;
 }
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
