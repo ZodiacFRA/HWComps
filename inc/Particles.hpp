@@ -23,21 +23,20 @@ public:
 	~Particles();
     int init(Shader *shader, Texture *texture);
 
-
-	int update();
+	int updateBuffers();
 	int setupDraw();
 	int draw();
 
-	int findUnusedParticle();
+    int startParticleSystem();
 	int simulateParticles(float deltaTime, glm::vec3 cameraPosition);
-    int createNewParticles(float deltaTime);
-    int SortParticles();
+    int createNewParticle(int pos);
+    int sortParticles();
 
 private:
 	int drawBuffer(GLuint buffer, int attribute, int size, int glType,
 					int normalized);
-    int _maxParticles = 10000;
-    Particle _particlesContainer[10000];
+    int _maxParticles = 1;
+    Particle _particlesContainer[1];
 
     Shader *_shader;
     Texture *_texture;
@@ -49,7 +48,7 @@ private:
 	GLuint _particles_position_buffer;  // Positions + size
 	GLuint _particles_color_buffer;  // Colors
 
-	int _particlesCount = 0;
+	// int _particlesCount = 0;
     int _lastUsedParticle = 0;
 
 };

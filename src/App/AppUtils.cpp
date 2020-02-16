@@ -1,5 +1,11 @@
 #include "App.hpp"
 
+int App::transformPosforAStar(glm::vec3 pos)
+{
+	return _pathfinder.toFlatArray(
+						(abs(_mapMins.x) + pos.x) / _nodeRes,
+						(abs(_mapMins.z) + pos.z) / _nodeRes);
+}
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,

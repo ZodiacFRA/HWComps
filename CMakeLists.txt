@@ -12,6 +12,7 @@ set(SRC_FILES
 	${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
 	${SRC_DIR}/Texture.cpp
+	${SRC_DIR}/aStar.cpp
 
 	${SRC_DIR}/App/App.cpp
 	${SRC_DIR}/App/AppGame.cpp

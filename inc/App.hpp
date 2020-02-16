@@ -5,6 +5,7 @@
 #include "Shader.hpp"
 #include "SceneTree.hpp"
 #include "Texture.hpp"
+#include "aStar.hpp"
 
 class App {
 public:
@@ -48,7 +49,8 @@ private:
 
 	// Map + Navig
 	int analyzeMap();
-	int scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins);
+	int transformPosforAStar(glm::vec3 pos);
+	int scanMap(Node *collisionNode, float scanRes, glm::vec3 _mapMins);
 
 	// Fonts
 	void printText2D(const char * text, int x, int y, int size);
@@ -110,6 +112,10 @@ private:
 
 	// Map
 	// Z first
+	aStar _pathfinder;
+	float _nodeRes;
+	glm::vec3 _mapMaxs = glm::vec3(-999999999, -999999999, -999999999);
+	glm::vec3 _mapMins = glm::vec3(999999999, 999999999, 999999999);
 	int _scanResolution;
 	std::vector<std::vector<bool>> _mapAnalysis;
 

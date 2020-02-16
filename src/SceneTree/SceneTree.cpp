@@ -2,7 +2,7 @@
 
 
 SceneTree::SceneTree()
-	: _lightPos(-10, 5, 0), _particles()
+	: _lightPos(0, 2, 0), _particles()
 {
 	_root.name = "";
 }
@@ -17,10 +17,27 @@ SceneTree::~SceneTree()
 
 int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition)
 {
-	_particles.createNewParticles(deltaTime);
 	_particles.simulateParticles(deltaTime, cameraPosition);
-	_particles.SortParticles();
-	_particles.update();
+	_particles.sortParticles();
+	return SUCCESS;
+}
+
+int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+{
+	for (auto it : _nodes) {
+		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
+					it.second->modelMatrix, _lightPos);
+		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
+		if (it.second->texture)
+			it.second->texture->setupDraw(
+				it.second->shader->getProgramID());
+		it.second->obj->draw();
+	}
+	_particles.updateBuffers();
+	// _particles._shader->setupDraw(projectionMatrix, viewMatrix,
+	// 			it.second->modelMatrix, _lightPos);
+	_particles.setupDraw();
+	// _particles.draw();
 	return SUCCESS;
 }
 
@@ -60,23 +77,6 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 	_nodes.emplace(name, newNode);
 	return newNode;
 }
-
-int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
-{
-	for (auto it : _nodes) {
-		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
-					it.second->modelMatrix, _lightPos);
-		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
-		if (it.second->texture)
-			it.second->texture->setupDraw(
-				it.second->shader->getProgramID());
-		it.second->obj->draw();
-	}
-	_particles.setupDraw();
-	_particles.draw();
-	return SUCCESS;
-}
-
 
 int SceneTree::remove(std::string nodeName)
 {

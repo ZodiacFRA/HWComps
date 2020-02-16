@@ -20,4 +20,4 @@ _gravityValue/-0.5
 _jumpFactor/0.2
 _jumpMaxLength/0.8
 
-_scanResolution/50
+_scanResolution/20

@@ -4,43 +4,41 @@
 int App::analyzeMap()
 {
     printf("%s-------------------------------------\nStarting map analysis%s\n", C_BOLD_GREEN, C_RESET);
-    glm::vec3 mapMaxs = glm::vec3(-999999999, -999999999, -999999999);
-    glm::vec3 mapMins = glm::vec3(999999999, 999999999, 999999999);
     Node *minYNode;  // Floor
     for (auto node : _sceneTree._nodes) {
             // printf("node name: %s, node min: %f, mapMin: %f\n", node.first, node.second->obj->_mins[i])
-            mapMins.x = std::min(mapMins.x, node.second->obj->_mins.x);
-            mapMaxs.x = std::max(mapMaxs.x, node.second->obj->_maxs.x);
+            _mapMins.x = std::min(_mapMins.x, node.second->obj->_mins.x);
+            _mapMaxs.x = std::max(_mapMaxs.x, node.second->obj->_maxs.x);
 
-            if (node.second->obj->_mins.y < mapMins.y) {
-                mapMins.y = node.second->obj->_mins.y;
+            if (node.second->obj->_mins.y < _mapMins.y) {
+                _mapMins.y = node.second->obj->_mins.y;
                 minYNode = node.second;
             }
-            mapMaxs.y = std::max(mapMaxs.y, node.second->obj->_maxs.y);
+            _mapMaxs.y = std::max(_mapMaxs.y, node.second->obj->_maxs.y);
 
-            mapMins.z = std::min(mapMins.z, node.second->obj->_mins.z);
-            mapMaxs.z = std::max(mapMaxs.z, node.second->obj->_maxs.z);
+            _mapMins.z = std::min(_mapMins.z, node.second->obj->_mins.z);
+            _mapMaxs.z = std::max(_mapMaxs.z, node.second->obj->_maxs.z);
     }
     printf("Detected Map boundaries are:\n");
-    float mapXSize = mapMaxs.x - mapMins.x;
-    float mapYSize = mapMaxs.y - mapMins.y;
-    float mapZSize = mapMaxs.z - mapMins.z;
+    float mapXSize = _mapMaxs.x - _mapMins.x;
+    float mapYSize = _mapMaxs.y - _mapMins.y;
+    float mapZSize = _mapMaxs.z - _mapMins.z;
     float floorHeight = minYNode->obj->_maxs.y;
-    printf("\tX: %f <-> %f\t-> %f\n", mapMins.x, mapMaxs.x, mapXSize);
-    printf("\tY: %f <-> %f\t-> %f\n", mapMins.y, mapMaxs.y, mapYSize);
-    printf("\tZ: %f <-> %f\t-> %f\n", mapMins.z, mapMaxs.z, mapZSize);
+    printf("\tX: %f <-> %f\t-> %f\n", _mapMins.x, _mapMaxs.x, mapXSize);
+    printf("\tY: %f <-> %f\t-> %f\n", _mapMins.y, _mapMaxs.y, mapYSize);
+    printf("\tZ: %f <-> %f\t-> %f\n", _mapMins.z, _mapMaxs.z, mapZSize);
     printf("Floor level detected at y= %f for node %s\n", floorHeight, minYNode->name.c_str());
-    float nodeRes = std::max(mapXSize / _scanResolution, mapZSize / _scanResolution);
-    printf("A* scan resolution size = %f units\n", nodeRes);
+    _nodeRes = std::max(mapXSize / _scanResolution, mapZSize / _scanResolution);
+    printf("A* scan resolution size = %f units\n", _nodeRes);
     // Create scanning node and object for collision detection
     Node *collisionNode = new Node();
     collisionNode->name = "collisionNode";
     collisionNode->obj = new Obj("collisionNode");
     collisionNode->modelMatrix = glm::mat4(1.0f);
-    collisionNode->obj->_mins = glm::vec3(-nodeRes / 2, 0.0, -nodeRes / 2);
-    collisionNode->obj->_maxs = glm::vec3(nodeRes / 2, 2.0, nodeRes / 2);
+    collisionNode->obj->_mins = glm::vec3(-_nodeRes / 2, 0.0, -_nodeRes / 2);
+    collisionNode->obj->_maxs = glm::vec3(_nodeRes / 2, 2.0, _nodeRes / 2);
     collisionNode->checkCollisions = false;
-    _sceneTree.translateNode(collisionNode, glm::vec3(mapMins.x + nodeRes / 2, 0.2, mapMins.z + nodeRes / 2));
+    _sceneTree.translateNode(collisionNode, glm::vec3(_mapMins.x + _nodeRes / 2, 0.2, _mapMins.z + _nodeRes / 2));
     printf("Starting at position %f, %f, %f\n",
                 collisionNode->modelMatrix[3].x,
                 collisionNode->modelMatrix[3].y,
@@ -48,13 +46,13 @@ int App::analyzeMap()
     collisionNode->checkCollisions = true;
 
     printf("%sStarting map collision analysis%s\n", C_GREEN, C_RESET);
-    scanMap(collisionNode, nodeRes, mapMins);
+    scanMap(collisionNode, _nodeRes, _mapMins);
     delete collisionNode->obj;
     delete collisionNode;
     return SUCCESS;
 }
 
-int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins)
+int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 _mapMins)
 {
     for (int z = 0; z < _scanResolution; z++) {
         std::vector<bool> tmpX;
@@ -71,14 +69,14 @@ int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 mapMins)
                 _mapAnalysis[z][x] = true;
         }
     }
-    // for (int z = 0; z < _scanResolution; z++) {
-    //     for (int x = 0; x < _scanResolution; x++) {
-    //         if (_mapAnalysis[z][x])
-    //             std::cout << '-';
-    //         else
-    //             std::cout << 'X';
-    //     }
-    //     std::cout << '\n';
-    // }
+    for (int z = 0; z < _scanResolution; z++) {
+        for (int x = 0; x < _scanResolution; x++) {
+            if (_mapAnalysis[z][x])
+                std::cout << '-';
+            else
+                std::cout << 'X';
+        }
+        std::cout << '\n';
+    }
     return SUCCESS;
 }

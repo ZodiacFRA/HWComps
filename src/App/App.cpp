@@ -24,14 +24,14 @@ int App::run()
 			if (!computeMatricesFromInputs())
 				return FAILURE;
 
-			_sceneTree.handleParticles(_deltaTime, glm::inverse(_viewMatrix)[3]);
+			// _sceneTree.handleParticles(_deltaTime, glm::inverse(_viewMatrix)[3]);
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
 
 			// Draw info text
-			char text[256];
-			sprintf(text,"FPS: %f", _fps);
-			printText2D(text, 0, 570, 20);
+			// char text[256];
+			// sprintf(text,"FPS: %f", _fps);
+			// printText2D(text, 0, 570, 20);
 
 			// Swap buffers
 			glfwSwapBuffers(_win);

@@ -19,6 +19,7 @@ int App::init()
 				);
 
 	flag &= setupScene();
+	flag &= _sceneTree._particles.startParticleSystem();
 	return flag;
 }
 
@@ -27,6 +28,7 @@ int App::setupScene()
 
 	createMap();
 	analyzeMap();
+	_pathfinder.initMap(_mapAnalysis);
 	// 1 openGL unit = 1m in Blender
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
