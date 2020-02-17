@@ -21,7 +21,7 @@ int App::createMap()
 
 int App::moveNPCs()
 {
-	if (_currentTime - _lastAStarTime > 1.0) {
+	if (_currentTime - _lastAStarTime > 0.5) {
 		_lastNpcDone += 1;
 		if (_lastNpcDone >= _NPCs.size())
 			_lastNpcDone = 0;

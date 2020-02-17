@@ -32,8 +32,8 @@ int App::setupScene()
 	// 1 openGL unit = 1m in Blender
 	// parentNodeName, Node name, Obj name, Shader name, Texture name, Position
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
-		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
-	for (int i = 0; i < 1; i++) {
+		"Player", glm::vec3(-20, 0, -20), 1, 1, -1);
+	for (int i = 0; i < 2; i++) {
 		Node *tmpNode = createNode("", "NPC_" + std::to_string(i), "Player",
 			"StandardShading", "floor", glm::vec3(3 * i + 1, 1, 3 * i + 1), 1, 1, -1);
 		NPC tmpNpc;

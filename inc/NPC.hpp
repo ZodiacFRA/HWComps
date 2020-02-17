@@ -5,7 +5,7 @@ class NPC {
 public:
     Node *_node;
     std::vector<glm::vec3> _path;
-    float speed = 0.1;
+    float speed = 0.7;
 
     void updatePath(std::vector<glm::vec3> newPath);
     glm::vec3 getNextMove();

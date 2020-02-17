@@ -3,7 +3,6 @@
 
 void NPC::updatePath(std::vector<glm::vec3> newPath)
 {
-    std::cout << "path length = " << newPath.size() << '\n';
     _path = newPath;
     _path.erase(_path.begin());
 };
@@ -20,7 +19,7 @@ glm::vec3 NPC::getNextMove()
     float length = (float)sqrt(pow(target.x, 2) + pow(target.z, 2));
     glm::vec3 finalTarget = target / length;
     finalTarget *= speed;
-    float finalLength = (float)sqrt(pow(target.x, 2) + pow(target.z, 2));
+    float finalLength = (float)sqrt(pow(finalTarget.x, 2) + pow(finalTarget.z, 2));
     if (finalLength >= length) {
         _path.erase(_path.begin());
         return target;
