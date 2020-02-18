@@ -17,8 +17,10 @@ SceneTree::~SceneTree()
 
 int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition)
 {
-	_particles.simulateParticles(deltaTime, cameraPosition);
-	_particles.sortParticles();
+	deltaTime = deltaTime;
+	cameraPosition = cameraPosition;
+	_particles.simulateParticles(deltaTime * 100000, cameraPosition);
+	// _particles.sortParticles();
 	return SUCCESS;
 }
 
@@ -28,16 +30,14 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
 					it.second->modelMatrix, _lightPos);
 		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
-		if (it.second->texture)
-			it.second->texture->setupDraw(
-				it.second->shader->getProgramID());
+		if (it.second->texture) {
+			it.second->texture->setupDraw(it.second->shader->getProgramID());
+		}
 		it.second->obj->draw();
 	}
 	_particles.updateBuffers();
-	// _particles._shader->setupDraw(projectionMatrix, viewMatrix,
-	// 			it.second->modelMatrix, _lightPos);
-	_particles.setupDraw();
-	// _particles.draw();
+	_particles.setupDraw(projectionMatrix, viewMatrix);
+	_particles.draw();
 	return SUCCESS;
 }
 

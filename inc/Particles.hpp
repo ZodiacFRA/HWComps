@@ -24,19 +24,20 @@ public:
     int init(Shader *shader, Texture *texture);
 
 	int updateBuffers();
-	int setupDraw();
+	int setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	int draw();
 
     int startParticleSystem();
 	int simulateParticles(float deltaTime, glm::vec3 cameraPosition);
-    int createNewParticle(int pos);
+    int createNewParticle(int pos, float life);
     int sortParticles();
 
 private:
 	int drawBuffer(GLuint buffer, int attribute, int size, int glType,
 					int normalized);
-    int _maxParticles = 1;
-    Particle _particlesContainer[1];
+
+    int _maxParticles = 100;
+    Particle _particlesContainer[100];
 
     Shader *_shader;
     Texture *_texture;
@@ -44,11 +45,14 @@ private:
     GLfloat *_g_particule_position_size_data;
     GLubyte *_g_particule_color_data;
 
+	GLuint _cameraRight_worldspace_ID;
+	GLuint _cameraUp_worldspace_ID;
+	GLuint _viewProjMatrixID;
+
 	GLuint _billboard_vertex_buffer;
 	GLuint _particles_position_buffer;  // Positions + size
 	GLuint _particles_color_buffer;  // Colors
 
-	// int _particlesCount = 0;
     int _lastUsedParticle = 0;
 
 };

@@ -15,7 +15,7 @@ int App::init()
 	flag &= loadTextureLibrary();
 	flag &= _sceneTree._particles.init(
 									_shadersLibrary["Particles"],
-									_textureLibrary["particle"]
+									_textureLibrary["Enemy"]
 				);
 
 	flag &= setupScene();
@@ -44,14 +44,8 @@ int App::setupScene()
 		NPC tmpNpc;
 		tmpNpc._node = tmpNode;
 		tmpNpc._targetPosDelta = glm::vec3(0, 0, 0);
-								// 		i + rand() % 4 - 2,
-								// 		0,
-								// 		i + rand() % 4 - 2
-								// );
-		// printf("%f/%f/%f\n", tmpNpc._targetPosDelta.x, tmpNpc._targetPosDelta.y, tmpNpc._targetPosDelta.z);
 		_NPCs.push_back(tmpNpc);
 	}
-	std::cout << "NPC NBR = " << _NPCs.size() << '\n';
 	return SUCCESS;
 }
 

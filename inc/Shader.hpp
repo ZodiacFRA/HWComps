@@ -13,8 +13,8 @@ public:
 	// GETTERS
 	GLuint getProgramID() { return _programID; }
 
-private:
 	GLuint _programID;
+private:
 
 	GLuint _matrixID;
 	GLuint _modelMatrixID;

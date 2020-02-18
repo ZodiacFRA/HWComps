@@ -6,12 +6,16 @@ int Particles::init(Shader *shader, Texture *texture)
     _shader = shader;
     _texture = texture;
 
+	_cameraRight_worldspace_ID  = glGetUniformLocation(_shader->_programID, "CameraRight_worldspace");
+	_cameraUp_worldspace_ID  = glGetUniformLocation(_shader->_programID, "CameraUp_worldspace");
+	_viewProjMatrixID = glGetUniformLocation(_shader->_programID, "VP");
+
     _g_particule_position_size_data = new GLfloat[_maxParticles * 4];
     _g_particule_color_data = new GLubyte[_maxParticles * 4];
 
     for(int i=0; i<_maxParticles; i++){
-        _particlesContainer[i].life = -1.0f;
-        _particlesContainer[i].cameradistance = -1.0f;
+        _particlesContainer[i].life = 1.0;
+        _particlesContainer[i].cameradistance = 1.0;
     }
     static const GLfloat g_vertex_buffer_data[] = {
          -0.5f, -0.5f, 0.0f,
@@ -49,16 +53,24 @@ int Particles::updateBuffers()
     glBufferData(GL_ARRAY_BUFFER, _maxParticles * 4 * sizeof(GLubyte), NULL, GL_STREAM_DRAW); // Buffer orphaning, a common way to improve streaming perf. See above link for details.
     glBufferSubData(GL_ARRAY_BUFFER, 0, _maxParticles * sizeof(GLubyte) * 4, _g_particule_color_data);
 
-    // glEnable(GL_BLEND);
-    // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     return SUCCESS;
 }
 
-int Particles::setupDraw()
+int Particles::setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
+    glUseProgram(_shader->getProgramID());
+    _texture->setupDraw(_shader->getProgramID());
 
-    // glUseProgram(_shader->getProgramID());
-    // _texture->setupDraw(_shader->getProgramID());
+	// Same as the billboards tutorial
+	glUniform3f(_cameraRight_worldspace_ID, viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]);
+	glUniform3f(_cameraUp_worldspace_ID   , viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]);
+
+	glm::vec3 CameraPosition(glm::inverse(viewMatrix)[3]);
+	glm::mat4 ViewProjectionMatrix = projectionMatrix * viewMatrix;
+	glUniformMatrix4fv(_viewProjMatrixID, 1, GL_FALSE, &ViewProjectionMatrix[0][0]);
+
 
     // 1rst attribute buffer : vertices
     drawBuffer(_billboard_vertex_buffer, 0, 3, GL_FLOAT, GL_FALSE);
@@ -66,7 +78,6 @@ int Particles::setupDraw()
     drawBuffer(_particles_position_buffer, 1, 4, GL_FLOAT, GL_FALSE);
     // 3rd attribute buffer : particles' colors
     drawBuffer(_particles_color_buffer, 2, 4, GL_UNSIGNED_BYTE, GL_TRUE);
-
     return SUCCESS;
 }
 
@@ -104,7 +115,7 @@ int Particles::draw()
     // but faster.
 
     glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, _maxParticles);
-    //
+	
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
