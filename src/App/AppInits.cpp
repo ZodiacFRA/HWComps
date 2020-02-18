@@ -39,7 +39,7 @@ int App::setupScene()
 	getSpawns(availableSpawns);
 	for (int i = 0; i < iaNbr; i++) {
 		Node *tmpNode = createNode("", "NPC_" + std::to_string(i), "Player",
-			"StandardShading", "floor",
+			"StandardShading", "Enemy",
 			availableSpawns[rand() % availableSpawns.size()], 1, 1, -1);
 		NPC tmpNpc;
 		tmpNpc._node = tmpNode;
