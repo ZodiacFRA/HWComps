@@ -5,7 +5,7 @@ int App::analyzeMap()
 {
     printf("%s-------------------------------------\nStarting map analysis%s\n", C_BOLD_GREEN, C_RESET);
     Node *minYNode;  // Floor
-    for (auto node : _sceneTree._nodes) {
+    for (auto &node : _sceneTree._nodes) {
             // printf("node name: %s, node min: %f, mapMin: %f\n", node.first, node.second->obj->_mins[i])
             _mapMins.x = std::min(_mapMins.x, node.second->obj->_mins.x);
             _mapMaxs.x = std::max(_mapMaxs.x, node.second->obj->_maxs.x);
@@ -46,13 +46,13 @@ int App::analyzeMap()
     collisionNode->checkCollisions = true;
 
     printf("%sStarting map collision analysis%s\n", C_GREEN, C_RESET);
-    scanMap(collisionNode, _nodeRes, _mapMins);
+    scanMap(collisionNode, _nodeRes);
     delete collisionNode->obj;
     delete collisionNode;
     return SUCCESS;
 }
 
-int App::scanMap(Node *collisionNode, float scanRes, glm::vec3 _mapMins)
+int App::scanMap(Node *collisionNode, float scanRes)
 {
     for (int z = 0; z < _scanResolution; z++) {
         std::vector<bool> tmpX;

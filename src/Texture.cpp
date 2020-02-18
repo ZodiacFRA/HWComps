@@ -126,7 +126,7 @@ GLuint Texture::loadDDS(const char *imagepath)
 	/* close the file pointer */
 	fclose(fp);
 
-	unsigned int components  = (fourCC == FOURCC_DXT1) ? 3 : 4;
+	// unsigned int components  = (fourCC == FOURCC_DXT1) ? 3 : 4;
 	unsigned int format;
 	switch(fourCC)
 	{

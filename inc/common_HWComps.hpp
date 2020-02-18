@@ -13,6 +13,7 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include <list>
 #include <math.h>
 #include <map>
 

@@ -4,9 +4,10 @@
 class NPC {
 public:
     Node *_node;
-    std::vector<glm::vec3> _path;
-    float speed = 0.7;
+    std::list<glm::vec3> _path;
+    float _speed = 0.4;
+	glm::vec3 _targetPosDelta;
 
-    void updatePath(std::vector<glm::vec3> newPath);
-    glm::vec3 getNextMove();
+    void updatePath(std::list<glm::vec3> newPath);
+	glm::vec3 getNextMove(float &totalTurnDistance);
 };

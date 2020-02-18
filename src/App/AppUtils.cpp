@@ -17,8 +17,18 @@ glm::vec3 App::transformPosforGlm(int x, int y)
 {
 	return glm::vec3(
 				x * _nodeRes - abs(_mapMins.x),
-				0,
+				1,
 				y * _nodeRes - abs(_mapMins.z));
+}
+
+void App::getSpawns(std::vector<glm::vec3> &spawnList)
+{
+	for (size_t i = 0; i < _mapAnalysis.size(); i++) {
+		for (size_t j = 0; j < _mapAnalysis.size(); j++) {
+			if (_mapAnalysis[i][j])
+				spawnList.push_back(transformPosforGlm(i, j));
+		}
+	}
 }
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,

@@ -5,7 +5,7 @@ int aStar::scanNeighbors(int nodeIdx)
 {
     if (!_map[nodeIdx]->_isFree)
         return 1;
-    for (auto delta : _deltas) {
+    for (auto &delta : _deltas) {
         int tmpX = delta.first + nodeIdx % _mapWidth;
         int tmpY = delta.second + nodeIdx / _mapWidth;
         int neighborIdx = tmpY * _mapWidth + tmpX;
@@ -21,7 +21,7 @@ int aStar::scanNeighbors(int nodeIdx)
 
 int aStar::getNeighbor(int nodeIdx)
 {
-    for (auto delta : _deltas) {
+    for (auto &delta : _deltas) {
         int tmpX = delta.first + nodeIdx % _mapWidth;
         int tmpY = delta.second + nodeIdx / _mapWidth;
         int neighborIdx = tmpY * _mapWidth + tmpX;
@@ -71,7 +71,7 @@ int aStar::initMap(std::vector<std::vector<bool>> collisionMap)
             _map.push_back(tmpNode);
         }
     }
-    for (int i = 0; i < _map.size(); i++)
+    for (size_t i = 0; i < _map.size(); i++)
         scanNeighbors(i);
     displayMap();
     return 1;
@@ -101,7 +101,7 @@ NavNode *aStar::getMinFScoreNode(std::vector<NavNode *> &tmpSet)
 {
     float min = 999999999;
     NavNode *minNode = NULL;
-    for (auto tmpNode: tmpSet) {
+    for (auto &tmpNode: tmpSet) {
         if (tmpNode->_fScore < min) {
             min = tmpNode->_fScore;
             minNode = tmpNode;
@@ -123,8 +123,9 @@ std::vector<std::pair<int, int>> aStar::rebuildPath(
 	std::reverse(tmp.begin(), tmp.end());
 
     std::vector<std::pair<int, int>> res;
-    for (auto tmpIdx : tmp)
+    for (auto &tmpIdx : tmp) {
         res.push_back(std::pair<int, int>(tmpIdx % _mapWidth, tmpIdx / _mapWidth));
+	}
 	return res;
 }
 
@@ -145,7 +146,7 @@ std::vector<std::pair<int, int>> aStar::compute(int startIdx, int endIdx)
             return rebuildPath(cameFrom, currentPos->_idx, startIdx);
         eraseFromVector(tmpSet, currentPos);
 
-        for (auto neighbor : currentPos->links) {
+        for (auto &neighbor : currentPos->links) {
             if (currentPos->_gScore + 1 < neighbor->_gScore) {
                 cameFrom.insert(
                         std::pair<int, int>(neighbor->_idx, currentPos->_idx));

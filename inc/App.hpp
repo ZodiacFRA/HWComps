@@ -53,7 +53,8 @@ private:
 	int analyzeMap();
 	int transformPosforAStar(glm::vec3 pos);
 	glm::vec3 transformPosforGlm(int x, int y);
-	int scanMap(Node *collisionNode, float scanRes, glm::vec3 _mapMins);
+	void getSpawns(std::vector<glm::vec3> &spawnList);
+	int scanMap(Node *collisionNode, float scanRes);
 
 	int moveNPCs();
 
@@ -125,7 +126,7 @@ private:
 	std::vector<std::vector<bool>> _mapAnalysis;
 
 	float _lastAStarTime;
-	int _lastNpcDone;
+	size_t _lastNpcDone = 0;
 	std::vector<NPC> _NPCs;
 
 	// Fonts

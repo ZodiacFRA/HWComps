@@ -13,7 +13,7 @@ int SceneTree::translateNode(Node *node, glm::vec3 tM, bool onlyCheckCollision)
 {
 	if (node->checkCollisions) {
 		glm::vec3 tmpPos = glm::translate(node->modelMatrix, tM)[3];
-		for (auto tmpNode : _nodes) {
+		for (auto &tmpNode : _nodes) {
 			if (tmpNode.second->name != node->name && tmpNode.second->checkCollisions) {
 				int flag = isColliding(node, tmpPos, tmpNode.second);
 				// printf("%s - %s\n", node->name.c_str(), tmpNode.first.c_str());
@@ -117,7 +117,7 @@ int SceneTree::setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM
 		node = it->second;
 	else
 		return printError("Can't set node rotation (Node not found)");
-	glm::vec3 mM = node->modelMatrix[1];
+	// glm::vec3 mM = node->modelMatrix[1];
 	// glm::vec3 resM(rM[0] - mM[0], rM[1] - mM[1], rM[2] - mM[2]);
 	node->modelMatrix = glm::rotate(node->modelMatrix,
 					glm::radians(degrees), rM);

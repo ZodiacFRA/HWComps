@@ -26,7 +26,7 @@ struct aStar {
     float getDistance(int idxA, int idxB);
     NavNode *getMinFScoreNode(std::vector<NavNode *> &tmpSet);
     void resetCostFunctions() {
-        for (auto NavNode : _map) {
+        for (auto &NavNode : _map) {
             NavNode->_fScore = 999999999;
             NavNode->_gScore = 999999999;
         }

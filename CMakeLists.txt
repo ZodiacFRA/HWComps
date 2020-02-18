@@ -52,8 +52,8 @@ include_directories(
 	${OPENGL_INCLUDE_DIRS}
 )
 
-# set(CMAKE_CXX_FLAGS "-W -Wextra -Wall -Werror -std=c++11")
-set(CMAKE_CXX_FLAGS " -std=c++11")
+set(CMAKE_CXX_FLAGS "-W -Wextra -Wall -Werror -std=c++11 -g")
+# set(CMAKE_CXX_FLAGS " -std=c++11 -g")
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${GL_SRC_FILES})
 

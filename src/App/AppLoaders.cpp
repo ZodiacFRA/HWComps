@@ -6,7 +6,7 @@ int App::loadTextureLibrary()
 	std::vector<std::string> files = getDirFilenamesList("./data/textures");
 	Texture *tmpTex;
 	std::string path = "./data/textures/";
-	for (auto file : files) {
+	for (auto &file : files) {
 		std::string tmp = path + file;
 		std::vector<std::string> splitted = splitString(file, '.');
 		tmpTex = new Texture();
@@ -26,7 +26,7 @@ int App::loadObjsLibrary()
 	std::vector<std::string> files = getDirFilenamesList("./data/objs");
 	Obj *tmpObj;
 	std::string path = "./data/objs/";
-	for (auto file : files) {
+	for (auto &file : files) {
 		std::string tmp = path + file;
 		std::vector<std::string> splitted = splitString(file, '.');
 		tmpObj = new Obj(splitted[0]);

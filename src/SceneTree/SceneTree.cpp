@@ -2,14 +2,14 @@
 
 
 SceneTree::SceneTree()
-	: _lightPos(0, 2, 0), _particles()
+	: _particles(), _lightPos(0, 2, 0)
 {
 	_root.name = "";
 }
 
 SceneTree::~SceneTree()
 {
-	for (auto it : _nodes) {
+	for (auto &it : _nodes) {
 		if (it.second)
 			delete it.second;
 	}
@@ -24,7 +24,7 @@ int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition)
 
 int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
-	for (auto it : _nodes) {
+	for (auto &it : _nodes) {
 		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
 					it.second->modelMatrix, _lightPos);
 		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
@@ -43,7 +43,7 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 int SceneTree::applyGravity(float gravityValue)
 {
-	for (auto node : _nodes) {
+	for (auto &node : _nodes) {
 		if (node.first != "PlayerNode" && node.second->applyGravity)
 				translateNode(node.second, glm::vec3(0, gravityValue, 0));
 	}

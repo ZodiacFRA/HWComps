@@ -119,8 +119,12 @@ int Particles::sortParticles()
 
 Particles::~Particles()
 {
+	delete[] _g_particule_position_size_data;
+	delete[] _g_particule_color_data;
+
 	// Clear VBOs
 	glDeleteBuffers(1, &_billboard_vertex_buffer);
 	glDeleteBuffers(1, &_particles_position_buffer);
 	glDeleteBuffers(1, &_particles_color_buffer);
+
 }
