@@ -21,7 +21,7 @@ int App::createMap()
 
 int App::moveNPCs()
 {
-	if (_currentTime - _lastAStarTime > 0.5) {
+	if (_currentTime - _lastAStarTime > 0.1) {
 		int from = transformPosforAStar(_NPCs[_lastNpcDone]._node->modelMatrix[3]);
 		int to = transformPosforAStar(glm::vec3(
 							_playerNode->modelMatrix[3].x + _NPCs[_lastNpcDone]._targetPosDelta.x,

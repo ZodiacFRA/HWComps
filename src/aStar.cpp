@@ -135,6 +135,8 @@ std::vector<std::pair<int, int>> aStar::compute(int startIdx, int endIdx)
     std::vector<NavNode *> tmpSet = {_map[startIdx]};
     std::map<int, int> cameFrom;
     std::vector<std::pair<int, int>> res;
+	if (!_map[endIdx])
+		return res;
     resetCostFunctions();
     _map[startIdx]->_gScore = 0;
     _map[startIdx]->_fScore = getDistance(startIdx, endIdx);

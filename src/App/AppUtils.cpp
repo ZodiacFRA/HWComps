@@ -92,14 +92,15 @@ int App::handleAspectRatio()
 int App::handleTime()
 {
 	_currentTime = glfwGetTime();
+	static float lastFrameTime = _currentTime;
+
 	_deltaTime = _currentTime - _lastTime;
 	_lastTime = _currentTime;
 
 	// FPS counter
 	_nbFrames++;
-	static float lastFrameTime = glfwGetTime();
-	if (_currentTime - lastFrameTime >= 0.01) {
-		_fps = float(_nbFrames) / (_currentTime - lastFrameTime);
+	if (_nbFrames >= 9) {
+		_fps = float(_nbFrames) / 10 * (1 / (_currentTime - lastFrameTime));
 		_nbFrames = 0;
 		lastFrameTime = _currentTime;
 		return true;

@@ -8,6 +8,7 @@ App::App()
 	_jumpStart(glfwGetTime()),
 	_lastAStarTime(glfwGetTime())
 {
+	srand(time(NULL));
 	// Is also called in AppPlayer.cpp handleMove() for hot reload
 	loadConstantsFromFile("./data/physics.txt");
 }
