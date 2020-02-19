@@ -28,16 +28,18 @@ int App::moveNPCs()
 							_playerNode->modelMatrix[3].y + _NPCs[_lastNpcDone]._targetPosDelta.y,
 							_playerNode->modelMatrix[3].z + _NPCs[_lastNpcDone]._targetPosDelta.z
 						));
-		std::vector<std::pair<int, int>> newPathAstar = _pathfinder.compute(from, to);
-		std::list<glm::vec3> newPathGlm;
-		for (auto &tmpPair : newPathAstar)
+		if (from != FAILURE && to != FAILURE) {
+			std::vector<std::pair<int, int>> newPathAstar = _pathfinder.compute(from, to);
+			std::list<glm::vec3> newPathGlm;
+			for (auto &tmpPair : newPathAstar)
 			newPathGlm.push_back(transformPosforGlm(tmpPair.first, tmpPair.second));
-		_NPCs[_lastNpcDone].updatePath(newPathGlm);
-		_lastAStarTime = _currentTime;
+			_NPCs[_lastNpcDone].updatePath(newPathGlm);
+			_lastAStarTime = _currentTime;
 
-		_lastNpcDone += 1;
-		if (_lastNpcDone >= _NPCs.size())
+			_lastNpcDone += 1;
+			if (_lastNpcDone >= _NPCs.size())
 			_lastNpcDone = 0;
+		}
 	}
 	for (size_t i = 0; i < _NPCs.size(); i++) {
 		float totalTurnDistance = 0.0;

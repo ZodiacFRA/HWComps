@@ -30,11 +30,10 @@ int Particles::createNewParticle(int pos, float life)
 
 	_particlesContainer[pos].speed = maindir + (randomdir * spread);
 
-	// // Very bad way to generate a random color
-	_particlesContainer[pos].r = rand() % 256;
-	_particlesContainer[pos].g = rand() % 256;
-	_particlesContainer[pos].b = rand() % 256;
-	_particlesContainer[pos].a = (rand() % 256) * 0.8;
+	_particlesContainer[pos].r = 255;//rand() % 256;
+	_particlesContainer[pos].g = 100;//rand() % 256;
+	_particlesContainer[pos].b = 100;//rand() % 256;
+	_particlesContainer[pos].a = 255;//(rand() % 256) * 0.8;
 
 	_particlesContainer[pos].size = (rand()%1)/2.0 + 0.2f;
 	return SUCCESS;

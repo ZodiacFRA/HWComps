@@ -108,17 +108,16 @@ int Particles::draw()
     glVertexAttribDivisor(1, 1); // positions : one per quad (its center) -> 1
     glVertexAttribDivisor(2, 1); // color : one per quad -> 1
 
-    // Draw the particules !
-    // This draws many times a small triangle_strip (which looks like a quad).
-    // This is equivalent to :
-    // for(i in ParticlesCount) : glDrawArrays(GL_TRIANGLE_STRIP, 0, 4),
-    // but faster.
-
     glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, _maxParticles);
-	
+
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
+
+	glVertexAttribDivisor(0, 0); // particles vertices : always reuse the same 4 vertices -> 0
+    glVertexAttribDivisor(1, 0); // positions : one per quad (its center) -> 1
+    glVertexAttribDivisor(2, 0); // color : one per quad -> 1
+
     return SUCCESS;
 }
 

@@ -5,6 +5,8 @@ int App::transformPosforAStar(glm::vec3 pos)
 	int idx = _pathfinder.toFlatArray(
 						(abs(_mapMins.x) + pos.x) / _nodeRes,
 						(abs(_mapMins.z) + pos.z) / _nodeRes);
+	if (idx < 0 || idx > (int)_pathfinder._map.size())
+		return FAILURE;
 	if (!_pathfinder._map[idx]->_isFree) {
 		int neighbor = _pathfinder.getNeighbor(idx);
 		if (neighbor != -1)
