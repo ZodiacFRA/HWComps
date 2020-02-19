@@ -30,6 +30,13 @@ int App::handleMove()
 	if (glfwGetKey(_win, GLFW_KEY_ENTER) == GLFW_PRESS)
 		loadConstantsFromFile("./data/physics.txt");
 
+	int state = glfwGetMouseButton(_win, GLFW_MOUSE_BUTTON_LEFT);
+	if (state == GLFW_PRESS)
+	    _sceneTree._particles._isActive = true;
+	if (state == GLFW_RELEASE)
+	    _sceneTree._particles._isActive = false;
+
+
 	float roll_d = 0.0;
 	float pitch_d = 0.0;
 	float rot_speed = 0.1;

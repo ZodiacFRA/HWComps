@@ -15,13 +15,14 @@ int App::init()
 	flag &= loadTextureLibrary();
 	flag &= _sceneTree._particles.init(
 									_shadersLibrary["Particles"],
-									_textureLibrary["Enemy"]
+									_textureLibrary["particle"]
 				);
 
 	flag &= setupScene();
-	flag &= _sceneTree._particles.startParticleSystem();
+	// flag &= _sceneTree._particles.startParticleSystem();
 	return flag;
 }
+
 
 int App::setupScene()
 {
@@ -89,6 +90,7 @@ int App::initGLFW()
 	glfwSetInputMode(_win, GLFW_STICKY_KEYS, GL_TRUE);
 	// Hide the mouse and enable unlimited mouvement
 	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(_win, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
 	glfwSetCursorPos(_win, _winWidth/2, _winHeight/2);

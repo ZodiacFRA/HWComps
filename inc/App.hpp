@@ -29,7 +29,6 @@ private:
 	int loadObjsLibrary();
 	int loadTextureLibrary();
 
-
 	int setupScene();
 	int createMap();
 
