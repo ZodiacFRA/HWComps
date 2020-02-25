@@ -28,7 +28,7 @@ public:
 	int draw();
 
 	int simulateParticles(float deltaTime, glm::vec3 cameraPosition);
-    int createNewParticle(float deltaTime, glm::vec3 startPos, float yaw);
+    int createNewParticle(float deltaTime, glm::vec3 startPos, float yaw, float pitch);
     int sortParticles();
 	int FindUnusedParticle();
 	bool _isActive = false;

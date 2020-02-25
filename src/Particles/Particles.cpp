@@ -21,9 +21,8 @@ int Particles::FindUnusedParticle()
 }
 
 
-int Particles::createNewParticle(float deltaTime, glm::vec3 startPos, float yaw)
+int Particles::createNewParticle(float deltaTime, glm::vec3 startPos, float yaw, float pitch)
 {
-	yaw = yaw;
 	if (!_isActive)
 		return SUCCESS;
 	// Generate 10 new particule each millisecond,
@@ -35,13 +34,14 @@ int Particles::createNewParticle(float deltaTime, glm::vec3 startPos, float yaw)
 
 	for(int i=0; i<newparticles; i++){
 		FindUnusedParticle();
-		_particlesContainer[_lastUsedParticle].life = 0.5; // This particle will live 5 seconds.
+		_particlesContainer[_lastUsedParticle].life = 0.5 + ((float)(rand() % 10) / 20.0) - 0.2;
 		_particlesContainer[_lastUsedParticle].pos = startPos + glm::vec3(0, 1, 0);
 
 		int flameSpeed = 40;
 		float tmpX = flameSpeed * sin(yaw);
 		float tmpZ = flameSpeed * cos(yaw);
-		glm::vec3 maindir = glm::vec3(tmpX, 4.0, tmpZ);
+		float height = (pitch - 2.5) * 20.0;
+		glm::vec3 maindir = glm::vec3(tmpX, height, tmpZ);
 
 		float spread = 3.0;
 		glm::vec3 randomdir = glm::vec3(
@@ -55,8 +55,8 @@ int Particles::createNewParticle(float deltaTime, glm::vec3 startPos, float yaw)
 
 		// Very bad way to generate a random color
 		_particlesContainer[_lastUsedParticle].r = 255; //rand() % 256;
-		_particlesContainer[_lastUsedParticle].g = 200 + rand() % 60;
-		_particlesContainer[_lastUsedParticle].b = 150 + rand() % 60;
+		_particlesContainer[_lastUsedParticle].g = 200 + rand() % 80;
+		_particlesContainer[_lastUsedParticle].b = 150 + rand() % 80;
 		_particlesContainer[_lastUsedParticle].a = (rand() % 256);
 
 		_particlesContainer[_lastUsedParticle].size = 0.1f + (rand()%1000)/5000.0f;
@@ -76,7 +76,7 @@ int Particles::simulateParticles(float deltaTime, glm::vec3 cameraPosition)
 		if (p.life > 0.0f) {
 			// Simulate simple physics : gravity only, no collisions
 			p.speed += glm::vec3(0.0f,-9.81f, 0.0f) * (float)deltaTime * 2.0f;
-			p.pos += p.speed * (float)deltaTime;
+			p.pos += (p.speed * (float)deltaTime * (float)(p.life * p.life * 100.0));
 			p.cameradistance = glm::length2(p.pos - cameraPosition);
 
 			// Fill the GPU buffer

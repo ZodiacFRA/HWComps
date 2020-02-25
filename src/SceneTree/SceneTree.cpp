@@ -2,7 +2,7 @@
 
 
 SceneTree::SceneTree()
-	: _particles(), _lightPos(0, 10, 0)
+	: _particles(), _lightPos(0, 20, 10)
 {
 	_root.name = "";
 }
@@ -15,12 +15,13 @@ SceneTree::~SceneTree()
 	}
 }
 
-int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition, float yaw)
+int SceneTree::handleParticles(float deltaTime, glm::vec3 cameraPosition,
+								float yaw, float pitch)
 {
 	deltaTime = deltaTime;
 	cameraPosition = cameraPosition;
 	_particles.createNewParticle(
-					deltaTime * 100000, getNode("PlayerNode")->modelMatrix[3], yaw);
+					deltaTime * 100000, getNode("PlayerNode")->modelMatrix[3], yaw, pitch);
 	_particles.simulateParticles(deltaTime * 100000, cameraPosition);
 	_particles.sortParticles();
 	return SUCCESS;

@@ -37,10 +37,11 @@ int aStar::getNeighbor(int nodeIdx)
 void aStar::displayMap()
 {
     for (size_t i = 0; i < _map.size(); i++) {
+		// Printing two chars to get a square map?
         if (i % _mapWidth == 0 && i)
             std::cout << '\n';
         if (_map[i]->_isFree)
-            std::cout << "-";
+            std::cout << " ";
         else
             std::cout << "=";
     }

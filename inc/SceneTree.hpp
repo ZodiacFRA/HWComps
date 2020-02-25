@@ -60,7 +60,7 @@ public:
 	// DOES NOT WORK
 	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 
-	int handleParticles(float deltaTime, glm::vec3 cameraPosition, float yaw);
+	int handleParticles(float deltaTime, glm::vec3 cameraPosition, float yaw, float pitch);
 
 	std::map<std::string, Node *> _nodes;
 

@@ -32,7 +32,7 @@ int App::moveNPCs()
 			std::vector<std::pair<int, int>> newPathAstar = _pathfinder.compute(from, to);
 			std::list<glm::vec3> newPathGlm;
 			for (auto &tmpPair : newPathAstar)
-			newPathGlm.push_back(transformPosforGlm(tmpPair.first, tmpPair.second));
+				newPathGlm.push_back(transformPosforGlm(tmpPair.first, tmpPair.second));
 			_NPCs[_lastNpcDone].updatePath(newPathGlm);
 			_lastAStarTime = _currentTime;
 

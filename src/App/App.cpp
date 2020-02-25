@@ -4,7 +4,7 @@
 App::App()
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
 	_lastTime(glfwGetTime()),
-	_camPos(glm::vec3(0, 15, -10)),  // RIGHT / HEIGHT / FRONT
+	_camPos(glm::vec3(-40, 25, -40)),  // RIGHT / HEIGHT / FRONT
 	_jumpStart(glfwGetTime()),
 	_lastAStarTime(glfwGetTime())
 {
@@ -26,7 +26,7 @@ int App::run()
 			if (!computeMatricesFromInputs())
 				return FAILURE;
 
-			_sceneTree.handleParticles(_deltaTime, _camPos, _yaw);
+			_sceneTree.handleParticles(_deltaTime, _camPos, _yaw, _camHeight);
 			_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
 			// Draw info text
