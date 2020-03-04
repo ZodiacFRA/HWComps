@@ -35,7 +35,7 @@ int App::setupScene()
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
 		"Player", glm::vec3(0, 0, 0), 1, 1, -1);
 
-	int iaNbr = 4;
+	int iaNbr = 20;
 	std::vector<glm::vec3> availableSpawns;
 	getSpawns(availableSpawns);
 	for (int i = 0; i < iaNbr; i++) {
